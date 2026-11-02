@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vibe-check"
+version = "0.1.0"
+description = "Evidence-based checks for AI-written code"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+vibe-check = "vibe_check.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["vibe_check*"]
