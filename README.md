@@ -60,3 +60,8 @@ REVIEW
 See [BENCHMARK.md](BENCHMARK.md) for the frozen 90-case synthetic set, saved before/after measurements, per-rule results, remaining misses, and read-only comparisons with documented NodeGoat/PyGoat issues. These measurements are limited to the labelled cases; they do not establish general accuracy or security. Run `python benchmark/run.py --output benchmark/results/my-run.json` for a fresh measurement. Existing result files cannot be overwritten by the runner.
 
 The final precision pass also has a separate 20-case held-out set, frozen before its rule changes and evaluated once afterward. Its result is recorded separately in BENCHMARK.md; rules were not tuned after observing it. The set is author-created and small, so it is not evidence of broad accuracy.
+
+## Local web UI
+
+Run `python -m vibe_check.web` from this folder, then paste a public GitHub repository link. It listens only on 127.0.0.1. Repositories are shallow-cloned to a temporary folder, never executed, and deleted after scanning. The Explain button sends only the fixed rule description to BharatCode, never repository content, and requires `BHARATCODE_API_KEY`.
+
