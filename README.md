@@ -36,10 +36,19 @@ Python risk checks use the standard-library AST. JavaScript/TypeScript checks fo
 
 Set `BHARATCODE_API_KEY` and pass `--ai`. The adapter sends only fixed descriptions of triggered rules to the BharatCode Chat Completions API; it does not send source, paths, masked values or complete secrets. Findings remain available on failure. `AI explanations unavailable: BharatCode access required.` also appears for connection failures and does not diagnose the cause.
 
-The [official API docs](https://bharatcode.ai/build) specify the endpoint and model used. The model catalog succeeded, but generation returned HTTP 402 pending student verification. Live explanations are not verified. Mock output is used only in tests and labeled MOCK ONLY. On systems with certificate errors, configure `SSL_CERT_FILE` to a current trusted bundle; do not disable SSL verification. If certifi is already installed, PowerShell can set it for the current session with `$env:SSL_CERT_FILE = python -c "import certifi; print(certifi.where())"`.
+The [official API docs](https://bharatcode.ai/build) specify the endpoint and model used. A real generation succeeded on 2 November 2026 using `qwen-3.8-27b`. Mock output is used only in tests and labeled MOCK ONLY. On systems with certificate errors, configure `SSL_CERT_FILE` to a current trusted bundle; do not disable SSL verification. If certifi is already installed, PowerShell can set it for the current session with `$env:SSL_CERT_FILE = python -c "import certifi; print(certifi.where())"`.
 
 ## Demo and tests
 
-Run `python -m unittest discover -s tests -v`. Create a disposable directory with a fake literal such as `api_key = "abcd9876543210"` and `eval(input())` in `app.py`, then scan it. The report should mask the value and show FIX FIRST. Do not use real credentials as demo data.
+Run `python -m unittest discover -s tests -v`. Create a disposable directory with a fake credential assignment and `eval(input())` in `app.py`, then scan it. The report should mask the value and show FIX FIRST. Do not use real credentials as demo data.
+
+Real CLI output from a disposable `example.js` containing `eval(input);`, using `--ai` and model `qwen-3.8-27b`:
+
+```text
+example.js:1: MEDIUM: js-eval: eval(...)
+  BharatCode explanation: This check flags a JavaScript or TypeScript line that appears to call `eval`, which may execute unsafe code. Review the flagged line and remove or justify the `eval` use.
+1 finding(s)
+REVIEW
+```
 
 `BharatCode.txt` follows the participant-supplied format and can be updated if BharatCode publishes a required format.

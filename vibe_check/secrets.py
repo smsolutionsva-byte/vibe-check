@@ -11,7 +11,7 @@ ENV_ASSIGN = re.compile(r'(?i)^\s*(?:export\s+)?[\w]*(?:api_?key|access_?token|a
 AWS = re.compile(r'\b(?:AKIA|ASIA)[A-Z0-9]{16}\b')
 GITHUB = re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{36,255}|github_pat_[A-Za-z0-9_]{22,255})\b')
 PRIVATE = re.compile(r'-----BEGIN (?:[A-Z0-9 ]*PRIVATE KEY|PGP PRIVATE KEY BLOCK)-----')
-PLACEHOLDER = re.compile(r'(?i)^(?:your[_-]?.*|<[^>]+>|\$\{?\w+\}?|\{\{.*\}\}|(?:example|sample|dummy|fake|test|replace|placeholder|changeme|redacted)(?:[_-].*)?)$')
+PLACEHOLDER = re.compile(r'(?i)^(?:your[_-]?.*|<[^>]+>|\$\{?\w+\}?|\{\{.*\}\}|secret[_-]key|base64 encoded random bytes|(?:example|sample|dummy|fake|test|replace|placeholder|changeme|redacted)(?:[_-].*)?)$')
 
 
 @dataclass(frozen=True)

@@ -19,7 +19,9 @@ class SecretTests(unittest.TestCase):
     def test_tokens_and_private_keys(self):
         aws = 'AK' + 'IA' + 'Z' * 16
         github = 'gh' + 'p_' + 'Z' * 36
-        self.write('secrets.txt', f'{aws}\n{github}\n-----BEGIN PRIVATE KEY-----\nNOTREAL\n-----END PRIVATE KEY-----\n-----BEGIN PGP PRIVATE KEY BLOCK-----\nNOTREAL\n-----END PGP PRIVATE KEY BLOCK-----\n')
+        begin = '-----BEGIN ' + 'PRIVATE KEY-----'
+        pgp = '-----BEGIN ' + 'PGP PRIVATE KEY BLOCK-----'
+        self.write('secrets.txt', f'{aws}\n{github}\n{begin}\nNOTREAL\n-----END PRIVATE KEY-----\n{pgp}\nNOTREAL\n-----END PGP PRIVATE KEY BLOCK-----\n')
         findings = scan(self.root)
         self.assertEqual([f.rule for f in findings], ['aws-access-key', 'github-token', 'private-key-block', 'private-key-block'])
         self.assertEqual([f.line for f in findings], [1, 2, 3, 6])
@@ -35,7 +37,8 @@ class SecretTests(unittest.TestCase):
         self.assertTrue(all(f.masked_value == 'abcd****' for f in findings))
 
     def test_placeholder_and_environment_reads(self):
-        self.write('a.py', 'api_key = "your_api_key"\napi_key = os.environ.get("API_KEY")\napi_key = "<YOUR_API_KEY>"\n')
+        self.write('a.py', 'api_key = "your_api_key"\napi_key = os.environ.get("API_KEY")\napi_key = "<YOUR_API_KEY>"\nsecret_key="secret-key"\nsecret_key="secret_key"\n')
+        self.write('example.rst', 'export SECRET_KEY="base64 encoded random bytes"\n')
         self.write('.env.example', 'API_KEY=your_api_key\n')
         self.assertEqual(scan(self.root), [])
 
