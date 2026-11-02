@@ -13,6 +13,7 @@ DESCRIPTIONS = {
     'hardcoded-credential': 'A credential appears to be assigned a literal value.',
     'dynamic-code-execution': 'Python code calls eval or exec.',
     'subprocess-shell-true': 'Python subprocess is called with shell=True.',
+    'possible-sql-string-building': 'Possible SQL string building: an interpolated or concatenated string is passed directly to a cursor-like execute call. This is a review hint, not a confirmed SQL injection vulnerability.',
     'js-eval': 'A JavaScript or TypeScript line matches an eval call.',
     'js-new-function': 'A JavaScript or TypeScript line matches a new Function call.',
     'js-child-process-concatenation': 'A JavaScript or TypeScript line matches child process exec with concatenation.',

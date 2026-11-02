@@ -8,9 +8,10 @@ from .js_patterns import views
 
 SKIP_DIRS = {'.git', 'node_modules', '.venv', 'venv', 'env', '.tox', '.nox', 'build', 'dist', 'target', '__pycache__', '.next', 'vendor'}
 LOCKFILES = {'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'poetry.lock', 'Pipfile.lock', 'Cargo.lock', 'Gemfile.lock', 'composer.lock', 'uv.lock'}
-ASSIGN = re.compile(r'''(?i)(?:\$|\b)(?:[\w]*?(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|secret[_-]?key|password|passwd|private[_-]?key))[\w-]*\s*(?::\s*[\w<>\[\]|& ]+)?\s*(?::=|=|:)\s*["']([^"'\r\n]+)["']''')
+ASSIGN = re.compile(r'''(?i)(?P<name>\$?[a-z_]\w*(?:-\w+)*)\s*(?::\s*[\w<>\[\]|& ]+)?\s*(?::=|=|:)\s*["'](?P<value>[^"'\r\n]+)["']''')
 NAME = re.compile(r'(?i)(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|secret[_-]?key|password|passwd|private[_-]?key)')
-ENV_ASSIGN = re.compile(r'(?i)^\s*(?:export\s+)?[\w]*(?:api_?key|access_?token|auth_?token|client_?secret|secret_?key|password|private_?key)[\w]*\s*=\s*([^\s#]+)')
+ENV_ASSIGN = re.compile(r'(?i)^\s*(?:export\s+)?(?P<name>[a-z_]\w*)\s*=\s*(?P<value>[^\s#]+)')
+DOC_SUFFIXES = {'.md', '.markdown', '.rst', '.txt', '.html', '.htm', '.adoc'}
 AWS = re.compile(r'\b(?:AKIA|ASIA)[A-Z0-9]{16}\b')
 GITHUB = re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{36,255}|github_pat_[A-Za-z0-9_]{22,255})\b')
 PRIVATE = re.compile(r'-----BEGIN (?:[A-Z0-9 ]*PRIVATE KEY|PGP PRIVATE KEY BLOCK)-----')
@@ -28,6 +29,12 @@ class Finding:
 
 def mask(value: str) -> str:
     return value[:4] + '****' if len(value) > 4 else '****'
+
+
+def credential_name(name):
+    normalized = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name).lower()
+    ui_suffix = re.search(r'(?:password|passwd|api_key|access_token|auth_token|secret_key|client_secret|private_key)_(?:error|message|label|hint|description|prompt|regex|pattern)(?:_|$)', normalized)
+    return bool(NAME.search(name)) and not ui_suffix
 
 
 def files(root: Path):
@@ -78,7 +85,7 @@ def python_literals(content):
         elif isinstance(node, ast.keyword) and node.arg:
             names = [node.arg]
         value = getattr(node, 'value', None)
-        if names and any(NAME.search(name) for name in names) and isinstance(value, ast.Constant) and isinstance(value.value, (str, bytes)):
+        if names and any(credential_name(name) for name in names) and isinstance(value, ast.Constant) and isinstance(value.value, (str, bytes)):
             literal = value.value.decode('utf-8', errors='replace') if isinstance(value.value, bytes) else value.value
             result.setdefault(node.lineno, []).append(literal)
     return result
@@ -104,12 +111,16 @@ def scan(root: Path):
             values = [('aws-access-key', m.group()) for m in AWS.finditer(line)]
             values += [('github-token', m.group()) for m in GITHUB.finditer(line)]
             generic_line = generic_lines[number - 1]
-            assignment = ASSIGN.search(generic_line) if literals is None and not generic_line.lstrip().startswith('#') else None
-            if not assignment and (path.name == '.env' or path.name.startswith('.env.')):
+            generic_allowed = path.suffix.lower() not in DOC_SUFFIXES
+            assignments = list(ASSIGN.finditer(generic_line)) if generic_allowed and literals is None and not generic_line.lstrip().startswith('#') else []
+            if not assignments and (path.name == '.env' or path.name.startswith('.env.')):
+                generic_allowed = True
                 assignment = ENV_ASSIGN.search(line)
+                assignments = [assignment] if assignment else []
             literal_values = list(literals.get(number, [])) if literals is not None else []
-            if assignment:
-                literal_values.append(assignment.group(1).strip('"\''))
+            for assignment in assignments:
+                if generic_allowed and credential_name(assignment.group('name')):
+                    literal_values.append(assignment.group('value').strip('"\''))
             for value in literal_values:
                 if len(value) >= 8 and not PLACEHOLDER.fullmatch(value):
                     values.append(('hardcoded-credential', value))

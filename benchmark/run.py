@@ -39,9 +39,13 @@ def ratios(counts):
 
 def evaluate(case_file=ROOT / 'benchmark' / 'cases.json'):
     cases = json.loads(case_file.read_text(encoding='utf-8'))
-    assert len(cases) == 90
-    assert len({c['id'] for c in cases}) == 90
-    assert {g: sum(c['group'] == g for c in cases) for g in ('positive', 'negative', 'tricky')} == {'positive': 40, 'negative': 40, 'tricky': 10}
+    assert cases
+    assert len({c['id'] for c in cases}) == len(cases)
+    if case_file.name == 'cases.json':
+        assert len(cases) == 90
+        assert {g: sum(c['group'] == g for c in cases) for g in ('positive', 'negative', 'tricky')} == {'positive': 40, 'negative': 40, 'tricky': 10}
+    elif case_file.name == 'heldout.json':
+        assert len(cases) == 20 and all(c['group'] == 'heldout' for c in cases)
     totals = dict(TP=0, FP=0, TN=0, FN=0)
     per_rule = {}
     details = []
@@ -76,9 +80,10 @@ def evaluate(case_file=ROOT / 'benchmark' / 'cases.json'):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--cases', type=Path, default=ROOT / 'benchmark' / 'cases.json')
     args = parser.parse_args()
     if args.output.exists(): parser.error('refusing to overwrite an existing result')
-    result = evaluate()
+    result = evaluate(args.cases)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x', encoding='utf-8') as output:
         json.dump(result, output, indent=2)

@@ -1,0 +1,23 @@
+# vibe-check report
+
+**Verdict: FIX FIRST**
+
+| Severity | Rule | File | Line | Evidence |
+| --- | --- | --- | ---: | --- |
+| high | hardcoded-credential | challenge/labs/business_logic_lab/app.py | 5 | busi**** |
+| high | hardcoded-credential | challenge/labs/security_headers_lab/app.py | 15 | secu**** |
+| high | hardcoded-credential | dockerized_labs/auth_failure_lab/app.py | 12 | inse**** |
+| high | hardcoded-credential | dockerized_labs/auth_failure_lab/app.py | 44 | 2022**** |
+| high | hardcoded-credential | dockerized_labs/crypto_failure_lab/app.py | 7 | cryp**** |
+| high | hardcoded-credential | dockerized_labs/sde/app.py | 11 | sk-1**** |
+| high | hardcoded-credential | dockerized_labs/sde/app.py | 12 | priv**** |
+| high | hardcoded-credential | dockerized_labs/sec_misconfig/Dockerfile | 13 | jwt_**** |
+| high | aws-access-key | dockerized_labs/sec_misconfig/app.py | 58 | AKIA**** |
+| high | hardcoded-credential | dockerized_labs/sensitive_data_exposure/entrypoint.sh | 11 | demo**** |
+| high | hardcoded-credential | dockerized_labs/sensitive_data_exposure/sensitive_data_lab/settings.py | 8 | djan**** |
+| high | hardcoded-credential | pygoat/settings.py | 23 | lr66**** |
+| medium | subprocess-shell-true | dockerized_labs/command_injection_lab/app.py | 29 | subprocess call with shell=True |
+| medium | dynamic-code-execution | dockerized_labs/command_injection_lab/app.py | 49 | eval(...) |
+| info | no-python-test-files-found | PyGoatBot.py | 1 | No test files matched common naming patterns. Tests may exist elsewhere. |
+
+Checks are limited and do not prove a repository is safe.

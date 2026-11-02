@@ -1,0 +1,36 @@
+test_failure_falls_back (test_ai.ApiTests.test_failure_falls_back) ... ok
+test_mock_is_explicitly_labeled (test_ai.ApiTests.test_mock_is_explicitly_labeled) ... ok
+test_payload_contains_no_source_or_credential (test_ai.ApiTests.test_payload_contains_no_source_or_credential) ... ok
+test_child_process_alias_and_unrelated_exec (test_benchmark_regressions.BenchmarkRegressions.test_child_process_alias_and_unrelated_exec) ... ok
+test_child_process_constant_command_and_callback_plus (test_benchmark_regressions.BenchmarkRegressions.test_child_process_constant_command_and_callback_plus) ... ok
+test_corpus_counts_and_explicit_labels (test_benchmark_regressions.BenchmarkRegressions.test_corpus_counts_and_explicit_labels) ... ok
+test_js_comments_strings_and_multiline_calls (test_benchmark_regressions.BenchmarkRegressions.test_js_comments_strings_and_multiline_calls) ... ok
+test_python_attribute_and_subscript_settings (test_benchmark_regressions.BenchmarkRegressions.test_python_attribute_and_subscript_settings) ... ok
+test_python_literals_ignore_comments_and_support_bytes (test_benchmark_regressions.BenchmarkRegressions.test_python_literals_ignore_comments_and_support_bytes) ... ok
+test_rust_reference_type_and_js_comment (test_benchmark_regressions.BenchmarkRegressions.test_rust_reference_type_and_js_comment) ... ok
+test_metric_definitions_and_frozen_labels (test_benchmark_runner.BenchmarkRunnerTests.test_metric_definitions_and_frozen_labels) ... ok
+test_verdicts_and_exits (test_cli.CliTests.test_verdicts_and_exits) ... ok
+test_documentation_still_scanned_for_provider_tokens_and_keys (test_precision_pass.PrecisionPassTests.test_documentation_still_scanned_for_provider_tokens_and_keys) ... ok
+test_function_scopes_and_safe_shell_argument (test_precision_pass.PrecisionPassTests.test_function_scopes_and_safe_shell_argument) ... ok
+test_nodegoat_error_messages_are_not_credentials (test_precision_pass.PrecisionPassTests.test_nodegoat_error_messages_are_not_credentials) ... ok
+test_parameterized_indirect_and_unrelated_execute_not_flagged (test_precision_pass.PrecisionPassTests.test_parameterized_indirect_and_unrelated_execute_not_flagged) ... ok
+test_possible_sql_string_building_is_medium_review_evidence (test_precision_pass.PrecisionPassTests.test_possible_sql_string_building_is_medium_review_evidence) ... ok
+test_pygoat_sql_tutorial_text_not_generic_secret (test_precision_pass.PrecisionPassTests.test_pygoat_sql_tutorial_text_not_generic_secret) ... ok
+test_python_ui_suffix_filter_preserves_real_credential (test_precision_pass.PrecisionPassTests.test_python_ui_suffix_filter_preserves_real_credential) ... ok
+test_sql_review_verdict_and_report (test_precision_pass.PrecisionPassTests.test_sql_review_verdict_and_report) ... ok
+test_subprocess_aliases_and_reassignment (test_precision_pass.PrecisionPassTests.test_subprocess_aliases_and_reassignment) ... ok
+test_access_message (test_report.ReportTests.test_access_message) ... ok
+test_redacted_and_verdict (test_report.ReportTests.test_redacted_and_verdict) ... ok
+test_evidence_and_missing_tests (test_risks.RiskTests.test_evidence_and_missing_tests) ... ok
+test_javascript_typescript_patterns (test_risks.RiskTests.test_javascript_typescript_patterns) ... ok
+test_string_and_safe_subprocess (test_risks.RiskTests.test_string_and_safe_subprocess) ... ok
+test_assignments_languages_and_env (test_secrets.SecretTests.test_assignments_languages_and_env) ... ok
+test_mask (test_secrets.SecretTests.test_mask) ... ok
+test_placeholder_and_environment_reads (test_secrets.SecretTests.test_placeholder_and_environment_reads) ... ok
+test_skipped_dirs_lockfiles_and_binary (test_secrets.SecretTests.test_skipped_dirs_lockfiles_and_binary) ... ok
+test_tokens_and_private_keys (test_secrets.SecretTests.test_tokens_and_private_keys) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.296s
+
+OK

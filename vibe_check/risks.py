@@ -3,6 +3,7 @@ import ast
 from pathlib import Path
 from .secrets import Finding, files
 from .js_patterns import risk_matches
+from .python_patterns import risk_matches as python_risk_matches
 
 
 def scan(root: Path):
@@ -16,14 +17,8 @@ def scan(root: Path):
             tree = ast.parse(content)
         except SyntaxError:
             continue
-        for node in ast.walk(tree):
-            if not isinstance(node, ast.Call):
-                continue
-            if isinstance(node.func, ast.Name) and node.func.id in {'eval', 'exec'}:
-                results.append(Finding('dynamic-code-execution', rel, node.lineno, node.func.id + '(...)', 'medium'))
-            if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name) and node.func.value.id == 'subprocess':
-                if any(k.arg == 'shell' and isinstance(k.value, ast.Constant) and k.value.value is True for k in node.keywords):
-                    results.append(Finding('subprocess-shell-true', rel, node.lineno, 'subprocess.' + node.func.attr + '(shell=True)', 'medium'))
+        for rule, number, evidence in python_risk_matches(tree):
+            results.append(Finding(rule, rel, number, evidence, 'medium'))
     for path, content in items:
         if path.suffix not in {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'}:
             continue
