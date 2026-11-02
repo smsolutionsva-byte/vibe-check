@@ -3,9 +3,13 @@ import json
 import unittest
 from vibe_check.ai import explain
 from vibe_check.secrets import Finding
+from mock_bharatcode import MockBharatCodeClient
 
 
 class ApiTests(unittest.TestCase):
+    def test_mock_is_explicitly_labeled(self):
+        self.assertTrue(MockBharatCodeClient().explain(None).startswith('MOCK ONLY:'))
+
     def test_payload_contains_no_source_or_credential(self):
         finding = Finding('hardcoded-credential', 'path.py', 1, 'abcd****')
         def fake_open(req, timeout):

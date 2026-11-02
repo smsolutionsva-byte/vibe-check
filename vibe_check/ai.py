@@ -2,6 +2,7 @@
 import json
 import urllib.error
 import urllib.request
+from dataclasses import dataclass
 
 URL = 'https://bharatcode.ai/api/model/v1/chat/completions'
 MODEL = 'qwen-3.8-27b'
@@ -33,3 +34,12 @@ def explain(finding, key, opener=urllib.request.urlopen):
         return text.strip() if isinstance(text, str) and text.strip() else None
     except (OSError, ValueError, KeyError, IndexError, TypeError):
         return None
+
+
+@dataclass
+class BharatCodeClient:
+    """Production adapter; credentials come from the caller's environment."""
+    key: str
+
+    def explain(self, finding):
+        return explain(finding, self.key)
