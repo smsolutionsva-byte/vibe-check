@@ -67,7 +67,7 @@ def evaluate(case_file=ROOT / 'benchmark' / 'cases.json'):
         details.append({'id': case['id'], 'group': case['group'], 'label': case['label'],
                         'expected': sorted(expected), 'actual': sorted(actual), **counts})
     return {'dataset_sha256': digest(case_file),
-            'scanner_sha256': {name: digest(ROOT / 'vibe_check' / name) for name in ('secrets.py', 'risks.py')},
+            'scanner_sha256': {path.name: digest(path) for path in sorted((ROOT / 'vibe_check').glob('*.py'))},
             'git_revision': subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
             'case_count': len(cases), 'metrics': ratios(totals),
             'per_rule': {k: ratios(v) for k, v in sorted(per_rule.items())}, 'cases': details}

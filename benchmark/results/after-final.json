@@ -1,0 +1,1548 @@
+{
+  "dataset_sha256": "20e703a46b6da606a5798d2b785feabf922b1d4dd111f5be7e4a0df0db72d5f0",
+  "scanner_sha256": {
+    "__init__.py": "824c3e42f9485cdab690bfc01713cdc8716e9ef84af3277bbd6c6f878241618d",
+    "ai.py": "46c426be5abc8d645de38e304422b3ee2cb04be6e7a4915e93cd6db808911a28",
+    "cli.py": "3530fa972e8430ff8a8b3ca27b21ee2a7173d65a2a4e575a7d320623899ef4c2",
+    "js_patterns.py": "bf7f930dd9fab2e3576c95996db44406bafa40a979e3f397936baf49a650977a",
+    "report.py": "b26c925de0fe2d81349ea9b680b0f92ce74777440dda08555e3d2bfe572c9c8c",
+    "risks.py": "423c53e102bc0355761bedd614f84ff12619d8a32472827ca86a8fcf8c95104d",
+    "secrets.py": "c8346e271e6825df4ecae9cd184337277286e89b356e6511c8aacff93242e780"
+  },
+  "git_revision": "d9d4f8b96cda0d2ed3fb704e6981bdd2645a65f9",
+  "case_count": 90,
+  "metrics": {
+    "TP": 45,
+    "FP": 0,
+    "TN": 43,
+    "FN": 2,
+    "precision": 1.0,
+    "recall": 0.9574468085106383
+  },
+  "per_rule": {
+    "aws-access-key": {
+      "TP": 3,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "dynamic-code-execution": {
+      "TP": 4,
+      "FP": 0,
+      "TN": 3,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "github-token": {
+      "TP": 3,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hardcoded-credential": {
+      "TP": 17,
+      "FP": 0,
+      "TN": 25,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "js-child-process-concatenation": {
+      "TP": 6,
+      "FP": 0,
+      "TN": 3,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "js-eval": {
+      "TP": 4,
+      "FP": 0,
+      "TN": 8,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "js-new-function": {
+      "TP": 4,
+      "FP": 0,
+      "TN": 3,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "private-key-block": {
+      "TP": 2,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "subprocess-shell-true": {
+      "TP": 2,
+      "FP": 0,
+      "TN": 1,
+      "FN": 2,
+      "precision": 1.0,
+      "recall": 0.5
+    }
+  },
+  "cases": [
+    {
+      "id": "P01",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P02",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P03",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P04",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P05",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P06",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P07",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P08",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P09",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P10",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P11",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P12",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P13",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P14",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P15",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P16",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P17",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P18",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P19",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P20",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P21",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "private-key-block",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "private-key-block",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P22",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "private-key-block",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "private-key-block",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P23",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "github-token",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P24",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P25",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P26",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P27",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P28",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P29",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P30",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P31",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P32",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P33",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P34",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P35",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P36",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P37",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P38",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P39",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "P40",
+      "group": "positive",
+      "label": "positive",
+      "expected": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "dynamic-code-execution",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "N01",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N02",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N03",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N04",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N05",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N06",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N07",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N08",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N09",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N10",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N11",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N12",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N13",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N14",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N15",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N16",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N17",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N18",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N19",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N20",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N21",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N22",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N23",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N24",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N25",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N26",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N27",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N28",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N29",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N30",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N31",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N32",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N33",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N34",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N35",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N36",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N37",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N38",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N39",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "N40",
+      "group": "negative",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "T01",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 1,
+      "TN": 0
+    },
+    {
+      "id": "T02",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 1,
+      "TN": 0
+    },
+    {
+      "id": "T03",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-eval",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "T04",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "js-new-function",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "T05",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "T06",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "T07",
+      "group": "tricky",
+      "label": "positive",
+      "expected": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "js-child-process-concatenation",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "T08",
+      "group": "tricky",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "T09",
+      "group": "tricky",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "T10",
+      "group": "tricky",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    }
+  ]
+}

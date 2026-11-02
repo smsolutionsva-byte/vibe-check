@@ -1,12 +1,15 @@
 """Conservative, evidence-based secret checks. Values never leave this module."""
 from dataclasses import dataclass
 from pathlib import Path
+import ast
 import os
 import re
+from .js_patterns import views
 
 SKIP_DIRS = {'.git', 'node_modules', '.venv', 'venv', 'env', '.tox', '.nox', 'build', 'dist', 'target', '__pycache__', '.next', 'vendor'}
 LOCKFILES = {'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'poetry.lock', 'Pipfile.lock', 'Cargo.lock', 'Gemfile.lock', 'composer.lock', 'uv.lock'}
-ASSIGN = re.compile(r'''(?i)(?:\$|\b)(?:[\w]*?(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|secret[_-]?key|password|passwd|private[_-]?key))[\w-]*\s*(?::\s*[\w<>\[\]| ]+)?\s*(?::=|=|:)\s*["']([^"'\r\n]+)["']''')
+ASSIGN = re.compile(r'''(?i)(?:\$|\b)(?:[\w]*?(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|secret[_-]?key|password|passwd|private[_-]?key))[\w-]*\s*(?::\s*[\w<>\[\]|& ]+)?\s*(?::=|=|:)\s*["']([^"'\r\n]+)["']''')
+NAME = re.compile(r'(?i)(?:api[_-]?key|access[_-]?token|auth[_-]?token|client[_-]?secret|secret[_-]?key|password|passwd|private[_-]?key)')
 ENV_ASSIGN = re.compile(r'(?i)^\s*(?:export\s+)?[\w]*(?:api_?key|access_?token|auth_?token|client_?secret|secret_?key|password|private_?key)[\w]*\s*=\s*([^\s#]+)')
 AWS = re.compile(r'\b(?:AKIA|ASIA)[A-Z0-9]{16}\b')
 GITHUB = re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{36,255}|github_pat_[A-Za-z0-9_]{22,255})\b')
@@ -47,9 +50,47 @@ def files(root: Path):
             yield p, content
 
 
+def target_names(target):
+    if isinstance(target, ast.Name):
+        return [target.id]
+    if isinstance(target, ast.Attribute):
+        return [target.attr]
+    if isinstance(target, ast.Subscript) and isinstance(target.slice, ast.Constant) and isinstance(target.slice.value, str):
+        return [target.slice.value]
+    if isinstance(target, (ast.Tuple, ast.List)):
+        return [name for item in target.elts for name in target_names(item)]
+    return []
+
+
+def python_literals(content):
+    """Literal values only; AST excludes comments, docstrings and env reads."""
+    result = {}
+    try:
+        tree = ast.parse(content)
+    except SyntaxError:
+        return result
+    for node in ast.walk(tree):
+        names = []
+        if isinstance(node, ast.Assign):
+            names = [name for target in node.targets for name in target_names(target)]
+        elif isinstance(node, ast.AnnAssign):
+            names = target_names(node.target)
+        elif isinstance(node, ast.keyword) and node.arg:
+            names = [node.arg]
+        value = getattr(node, 'value', None)
+        if names and any(NAME.search(name) for name in names) and isinstance(value, ast.Constant) and isinstance(value.value, (str, bytes)):
+            literal = value.value.decode('utf-8', errors='replace') if isinstance(value.value, bytes) else value.value
+            result.setdefault(node.lineno, []).append(literal)
+    return result
+
+
 def scan(root: Path):
     found = []
     for path, content in files(root):
+        literals = python_literals(content) if path.suffix == '.py' else None
+        generic_lines = content.splitlines()
+        if path.suffix in {'.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs', '.go', '.rs', '.php'}:
+            generic_lines = views(content)[1].splitlines()
         in_private = False
         for number, line in enumerate(content.splitlines(), 1):
             if PRIVATE.search(line):
@@ -62,11 +103,14 @@ def scan(root: Path):
                 continue
             values = [('aws-access-key', m.group()) for m in AWS.finditer(line)]
             values += [('github-token', m.group()) for m in GITHUB.finditer(line)]
-            assignment = ASSIGN.search(line)
+            generic_line = generic_lines[number - 1]
+            assignment = ASSIGN.search(generic_line) if literals is None and not generic_line.lstrip().startswith('#') else None
             if not assignment and (path.name == '.env' or path.name.startswith('.env.')):
                 assignment = ENV_ASSIGN.search(line)
+            literal_values = list(literals.get(number, [])) if literals is not None else []
             if assignment:
-                value = assignment.group(1).strip('"\'')
+                literal_values.append(assignment.group(1).strip('"\''))
+            for value in literal_values:
                 if len(value) >= 8 and not PLACEHOLDER.fullmatch(value):
                     values.append(('hardcoded-credential', value))
             seen = set()

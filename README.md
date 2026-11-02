@@ -30,7 +30,7 @@ FIX FIRST
 
 Secret detection uses patterns for AWS and GitHub tokens, private-key headers and common literal credential assignments. Values are masked; private key bodies are not displayed. Common dependency/build directories, lockfiles, symlinks and binary files are skipped. Patterns can miss secrets and flag harmless literals.
 
-Python risk checks use the standard-library AST. JavaScript/TypeScript checks for eval, new Function and concatenated child-process exec use line patterns, not full parsing. They can match strings or comments and miss multiline calls or aliases. The Python missing-test observation only checks `test_*.py` and `*_test.py` filenames. Tests may exist elsewhere. Its file and line point to a source file, not proof that tests are absent.
+Python risk and literal-credential checks use the standard-library AST. JavaScript/TypeScript risk checks for eval, new Function and concatenated child-process exec use lexical filtering and patterns, not full parsing. They ignore ordinary strings/comments and support basic multiline calls and child-process import aliases. Template interpolation, regex literals, binding scope, reassigned imports and Python subprocess aliases remain limitations. The Python missing-test observation only checks `test_*.py` and `*_test.py` filenames. Tests may exist elsewhere. Its file and line point to a source file, not proof that tests are absent.
 
 ## BharatCode API
 
@@ -52,3 +52,7 @@ REVIEW
 ```
 
 `BharatCode.txt` follows the participant-supplied format and can be updated if BharatCode publishes a required format.
+
+## Benchmark
+
+See [BENCHMARK.md](BENCHMARK.md) for the frozen 90-case synthetic set, saved before/after measurements, per-rule results, remaining misses, and read-only comparisons with documented NodeGoat/PyGoat issues. These measurements are limited to the labelled cases; they do not establish general accuracy or security. Run `python benchmark/run.py --output benchmark/results/my-run.json` for a fresh measurement. Existing result files cannot be overwritten by the runner.

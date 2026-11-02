@@ -30,7 +30,19 @@ The working-tree self-scan after building fake test credentials at runtime repor
 
 ## Known limitations
 
-Patterns miss some secrets. JS/TS matching is not parsing and can report code-like strings or comments, miss multiline calls or aliases, and misattribute same-named exec functions. Missing-test observation covers only Python naming patterns and cannot establish whether tests exist elsewhere. Python syntax errors are skipped. The access-required message can also indicate a network or certificate failure.
+Patterns miss some secrets. JS/TS checks now filter ordinary strings/comments, support basic multiline calls and attribute child-process calls to simple imports; they still do not parse the language or resolve scope/reassigned bindings. Template interpolation, regex literals and Python subprocess aliases remain gaps. Missing-test observation covers only Python naming patterns and cannot establish whether tests exist elsewhere. Python syntax errors are skipped. The access-required message can also indicate a network or certificate failure.
+
+## Frozen benchmark and vulnerable repositories — 2 November 2026
+
+- Dataset frozen in `d9d4f8b` before scanning: 40 ordinary positives, 40 negatives, 10 tricky cases (7 positive / 3 negative). No cases were edited or relabelled after baseline.
+- `python benchmark/run.py --output benchmark/results/baseline.json`: TP 38, FP 9, TN 34, FN 9; precision/recall both 80.85% on this set.
+- Fixed three areas: JS comment/string context, literal-credential extraction, and child-process call attribution/multiline aliases. Added regression tests, including a public-repo attribute/subscript regression discovered during inspection.
+- `python benchmark/run.py --output benchmark/results/final.json`: TP 45, FP 0, TN 43, FN 2; precision 100%, recall 95.74% on this same synthetic set only. Two Python subprocess-alias misses remain. No held-out set was used.
+- `python -m unittest discover -s tests -v`: 22 tests passed; no final failures. Earlier intermediate run passed 20 before two more test methods were added.
+- `python -m vibe_check.cli ..\eval-nodegoat --report benchmark/results/nodegoat.md`: 7 findings, FIX FIRST, exit 1. Three eval calls correspond to its documented injection lesson; error-message and test/example false positives remain.
+- `python -m vibe_check.cli ..\eval-pygoat --report benchmark/results/pygoat-final.md`: 22 findings, FIX FIRST, exit 1. Its documented shell/eval labs were found. Documented SQL injection/SSRF and other classes remain outside coverage; tutorial text also creates false positives.
+- Both public clones stayed clean according to `git status --porcelain`. No code or dependencies from them were run. Exact revisions, masked reports and source/documentation links are in BENCHMARK.md.
+- Some attempted clone URLs in the earlier small-repo evaluation returned repository-not-found; neither vulnerable-repo clone in this benchmark failed.
 
 ## Demo script
 
