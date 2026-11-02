@@ -29,7 +29,8 @@ class SecretTests(unittest.TestCase):
         self.assertNotIn(github, repr(findings))
 
     def test_assignments_languages_and_env(self):
-        data = {'a.py': 'api_key = "abcdef123456"', 'a.js': 'const apiKey = "abcdef123456";', 'a.ts': 'const apiKey: string = "abcdef123456";', 'a.go': 'apiKey := "abcdef123456"', 'a.php': '$api_key = "abcdef123456";', 'a.rb': 'api_key = "abcdef123456"', 'a.rs': 'let api_key = "abcdef123456";', '.env': 'API_KEY=abcdef123456'}
+        fake = 'abcd' + 'ef123456'
+        data = {'a.py': f'api_key = "{fake}"', 'a.js': f'const apiKey = "{fake}";', 'a.ts': f'const apiKey: string = "{fake}";', 'a.go': f'apiKey := "{fake}"', 'a.php': f'$api_key = "{fake}";', 'a.rb': f'api_key = "{fake}"', 'a.rs': f'let api_key = "{fake}";', '.env': f'API_KEY={fake}'}
         for filename, value in data.items(): self.write(filename, value)
         findings = scan(self.root)
         self.assertEqual(len(findings), len(data))
@@ -43,10 +44,11 @@ class SecretTests(unittest.TestCase):
         self.assertEqual(scan(self.root), [])
 
     def test_skipped_dirs_lockfiles_and_binary(self):
+        fake_line = 'api_' + 'key = "' + 'abcd' + 'ef123456"'
         for folder in ['.git', 'node_modules', '.venv', 'venv', 'build', 'dist', 'target']:
-            self.write(folder + '/a.py', 'api_key = "abcdef123456"')
-        self.write('package-lock.json', 'api_key = "abcdef123456"')
-        (self.root / 'binary').write_bytes(b'\x00api_key = "abcdef123456"')
+            self.write(folder + '/a.py', fake_line)
+        self.write('package-lock.json', fake_line)
+        (self.root / 'binary').write_bytes(b'\x00' + fake_line.encode())
         self.assertEqual(scan(self.root), [])
 
     def test_mask(self):

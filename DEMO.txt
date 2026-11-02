@@ -1,0 +1,10 @@
+Real terminal output from a disposable JavaScript sample containing eval(input);
+Command: python -m vibe_check.cli <sample-directory> --ai --report <temporary-report-path>
+Model requested: qwen-3.8-27b
+
+example.js:1: MEDIUM: js-eval: eval(...)
+  BharatCode explanation: This check flags a JavaScript or TypeScript line that appears to call `eval`, which may execute unsafe code. Review the flagged line and remove or justify the `eval` use.
+1 finding(s)
+REVIEW
+
+Recorded from a live BharatCode response on 2 November 2026; no mock was used.

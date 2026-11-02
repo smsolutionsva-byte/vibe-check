@@ -10,6 +10,7 @@
 ## Verification
 
 - `python -m unittest discover -s tests -v`: 14 tests passed, including mocked API fallback and report masking.
+- Fresh temporary Python virtual environment: `python -m pip install -e .` and installed `vibe-check --help` both succeeded on 2 November 2026.
 - Sample one: fake Python credential plus eval, no named tests: 3 findings, FIX FIRST, exit 1. Credential shown as `abcd****`.
 - Sample two: JavaScript child-process concatenation plus `new Function`: 2 findings, REVIEW, exit 1.
 - All deliberately planted examples were found. These samples do not establish real-world accuracy. No false positives were observed in the two samples; no unplanted issues were independently audited.
@@ -25,7 +26,7 @@ Read-only shallow clones, 2 November 2026:
 
 These clean outcomes are not proof of safety. A targeted search for selected risky APIs found no additional supported pattern in their source; no exhaustive security audit was performed, so actual misses in these repos are undetermined. Known scanner misses include JS/TS test discovery, multiline expressions, aliases and unsupported credential formats.
 
-Self-scan after fixture changes reported four high findings in `tests/test_secrets.py` lines 32, 47, 48 and 49; these are intentionally fake test fixture strings, not verified live secrets. The detector treats them as literals. Review before publishing; this scan cannot guarantee the absence of all secrets.
+The working-tree self-scan after building fake test credentials at runtime reports zero findings. An audit of all three existing commits found only fake test and README fixtures; they remain in the old Git history and could still trigger external scanners. No tracked `.env` file was found; `.env.example` is the only environment template in history. This pattern-based audit cannot guarantee the absence of every possible secret.
 
 ## Known limitations
 
@@ -43,7 +44,7 @@ Patterns miss some secrets. JS/TS matching is not parsing and can report code-li
 
 - [x] Test a real API generation and record the observed output and model.
 - [ ] Review false positives and misses on representative code.
-- [ ] Check demo files and Git history for secrets and private information.
+- [ ] Review historical fake test fixtures before publishing; pattern-based history audit found no confirmed real keys, but cannot guarantee completeness.
 - [ ] Confirm the current official rules and BharatCode.txt format.
 - [ ] Review, then create/push the public GitHub repository yourself.
 - [ ] Submit on the official Build League page before 10 November 2026, 11:59 PM IST.
