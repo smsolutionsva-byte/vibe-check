@@ -1,0 +1,292 @@
+[
+  {
+    "id": "H01",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "import subprocess as jobs\njobs.check_output(cmd, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Module alias with shell enabled."
+  },
+  {
+    "id": "H02",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "from subprocess import Popen as spawn\nspawn(cmd, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Imported constructor alias."
+  },
+  {
+    "id": "H03",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "from subprocess import run\nrun(cmd, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Direct imported subprocess call."
+  },
+  {
+    "id": "H04",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "import subprocess as processes\nprocesses.call(\n cmd,\n shell=True,\n)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Multiline module-alias call."
+  },
+  {
+    "id": "H05",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "cursor.execute(f\"SELECT name FROM users WHERE id = {user_id}\")\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [
+      {
+        "rule": "possible-sql-string-building",
+        "line": 1
+      }
+    ],
+    "reason": "Interpolated SQL in same cursor call; review, not confirmed injection."
+  },
+  {
+    "id": "H06",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "cur.execute(\"SELECT * FROM users WHERE name=\" + name)\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [
+      {
+        "rule": "possible-sql-string-building",
+        "line": 1
+      }
+    ],
+    "reason": "Literal concatenated in same cursor call."
+  },
+  {
+    "id": "H07",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "reader = connection.cursor()\nreader.execute(f\"SELECT * FROM {table}\")\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [
+      {
+        "rule": "possible-sql-string-building",
+        "line": 2
+      }
+    ],
+    "reason": "Cursor acquired under a nonstandard variable name."
+  },
+  {
+    "id": "H08",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.py",
+    "source": "cursor.execute(\n \"SELECT * FROM \" + table + \" WHERE id=\" + str(item_id)\n)\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [
+      {
+        "rule": "possible-sql-string-building",
+        "line": 1
+      }
+    ],
+    "reason": "Multiline string-building argument in same call."
+  },
+  {
+    "id": "H09",
+    "group": "heldout",
+    "label": "positive",
+    "file": "a.ts",
+    "source": "const serviceApiKey: string = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Runtime synthetic literal credential remains reportable."
+  },
+  {
+    "id": "H10",
+    "group": "heldout",
+    "label": "positive",
+    "file": "README.md",
+    "source": "An accidentally published access identifier: {{AWS}}\n",
+    "target_rules": [
+      "aws-access-key"
+    ],
+    "expected": [
+      {
+        "rule": "aws-access-key",
+        "line": 1
+      }
+    ],
+    "reason": "Provider-specific token pattern must still be checked in documentation."
+  },
+  {
+    "id": "H11",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.js",
+    "source": "errors.passwordError = \"Password must meet the requirements\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "Password validation message, not a credential."
+  },
+  {
+    "id": "H12",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.ts",
+    "source": "const invalidPasswordErrorMessage = \"Incorrect password supplied\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "User-interface error message variable."
+  },
+  {
+    "id": "H13",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "\"\"\"Example password=\"{{FAKE}}\" shown in a tutorial.\"\"\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "Documentation-only Python string."
+  },
+  {
+    "id": "H14",
+    "group": "heldout",
+    "label": "negative",
+    "file": "lesson.html",
+    "source": "<pre>SELECT * FROM account WHERE password='arbitrary input' OR 1=1</pre>\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "SQL tutorial markup, not an executable credential assignment."
+  },
+  {
+    "id": "H15",
+    "group": "heldout",
+    "label": "negative",
+    "file": "README.md",
+    "source": "Testing the lesson: password=\"{{FAKE}}\" is synthetic.\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "Generic credential example in documentation."
+  },
+  {
+    "id": "H16",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "cursor.execute(\"SELECT * FROM users WHERE id = ?\", (user_id,))\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [],
+    "reason": "Parameterized query with separately supplied values."
+  },
+  {
+    "id": "H17",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "query = \"SELECT * FROM users WHERE id=\" + item_id\ncursor.execute(query)\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [],
+    "reason": "String building occurs elsewhere; intentionally outside this same-call rule, not a claim it is safe."
+  },
+  {
+    "id": "H18",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "task.execute(f\"work on {item}\")\n",
+    "target_rules": [
+      "possible-sql-string-building"
+    ],
+    "expected": [],
+    "reason": "Unrelated execute method, no cursor evidence."
+  },
+  {
+    "id": "H19",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "from subprocess import run as launch\nlaunch([\"echo\", item], shell=False)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [],
+    "reason": "Aliased subprocess with shell explicitly disabled."
+  },
+  {
+    "id": "H20",
+    "group": "heldout",
+    "label": "negative",
+    "file": "a.py",
+    "source": "import subprocess as jobs\ndef task(jobs):\n    jobs.run(command, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [],
+    "reason": "Function argument shadows imported module; scope challenge."
+  }
+]
