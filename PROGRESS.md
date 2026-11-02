@@ -9,7 +9,7 @@
 
 ## Verification
 
-- `python -m unittest discover -s tests -v`: 14 tests passed, including mocked API fallback and report masking.
+- Initial build: `python -m unittest discover -s tests -v` passed 14 tests, including mocked API fallback and report masking. The latest precision pass passed 31 tests; see below.
 - Fresh temporary Python virtual environment: `python -m pip install -e .` and installed `vibe-check --help` both succeeded on 2 November 2026.
 - Sample one: fake Python credential plus eval, no named tests: 3 findings, FIX FIRST, exit 1. Credential shown as `abcd****`.
 - Sample two: JavaScript child-process concatenation plus `new Function`: 2 findings, REVIEW, exit 1.
@@ -26,7 +26,7 @@ Read-only shallow clones, 2 November 2026:
 
 These clean outcomes are not proof of safety. A targeted search for selected risky APIs found no additional supported pattern in their source; no exhaustive security audit was performed, so actual misses in these repos are undetermined. Known scanner misses include JS/TS test discovery, multiline expressions, aliases and unsupported credential formats.
 
-The working-tree self-scan after building fake test credentials at runtime reports zero findings. An audit of all three existing commits found only fake test and README fixtures; they remain in the old Git history and could still trigger external scanners. No tracked `.env` file was found; `.env.example` is the only environment template in history. This pattern-based audit cannot guarantee the absence of every possible secret.
+The publishing-preparation working-tree self-scan, before adding the benchmark, reported zero findings. An audit of the three commits existing at that stage found only fake test and README fixtures; they remain in the old Git history and could still trigger external scanners. No tracked `.env` file was found; `.env.example` was the only environment template in that history. This pattern-based audit cannot guarantee the absence of every possible secret. The final precision-pass self-scan has one known fake-fixture false positive, described below.
 
 ## Known limitations
 
@@ -43,6 +43,7 @@ Patterns miss some secrets. JS/TS checks filter ordinary strings/comments, suppo
 - Implementation frozen in commit `ef298c3`, then `python benchmark/run.py --cases benchmark/heldout.json --output benchmark/results/heldout-once.json` run once: TP 10 / FP 0 / TN 10 / FN 0, precision/recall both 100% on these 20 cases only.
 - No scanner rules changed after the held-out result. This is a small author-created set, not an independently blinded evaluation. It does not establish general security or accuracy.
 - Full separate metrics, source hashes, tradeoffs and documented misses are in BENCHMARK.md.
+- Final repository self-scan: `python -m vibe_check.cli . --report "$env:TEMP\vibe-final-precision-self-scan.md"` returned exit 1 with one high finding at `benchmark/heldout.json:213`, masked as `arbi****`. This is H14's fake tutorial literal serialized inside JSON, not a real credential. It is ignored in its intended lesson.html context during benchmarking; the JSON container loses that context. It remains a known false positive, with no corpus or scanner changes after held-out evaluation.
 
 ## Frozen benchmark and vulnerable repositories — 2 November 2026
 

@@ -104,6 +104,8 @@ lines += [
     '- PyGoat builds its SQL query into a variable before calling execute, so the new same-call rule intentionally does not catch that documented lab. XSS, SSRF and **full SQL injection detection remain not covered**.', '',
     '### Current limitations and precision tradeoffs', '',
     'Skipping generic credentials in documentation/HTML can hide actual generic secret literals and keys in inline scripts there. UI-style names can also hide a poorly named real credential. Provider-token/private-key patterns remain active in those files. Test/default credentials are not automatically excluded. Python syntax errors, dynamic imports, complex rebindings and global/nonlocal/class/lambda binding nuances can cause misses or false positives. SQL receiver recognition is heuristic: unrelated objects named cursor can be flagged and real cursors under other names can be missed. Query variables, .format, percent formatting, SQL taint/sanitization analysis, XSS and SSRF are not covered. JS/TS remains pattern-based. SHIP is not a security guarantee.', '',
+    '### Repository self-scan', '',
+    'The final `python -m vibe_check.cli . --report "$env:TEMP\\vibe-final-precision-self-scan.md"` returned exit 1: one high hardcoded-credential finding at `benchmark/heldout.json:213`, masked as `arbi****`. This is the fake tutorial text serialized in H14, not a real credential. H14 is correctly ignored when materialized as lesson.html by the benchmark; scanning the JSON container itself loses that file context. This remains a known false positive. The frozen corpus and scanner were left unchanged after held-out evaluation.', '',
     '### Commands and tests', '',
     '```powershell',
     'python -m unittest discover -s tests -v',
