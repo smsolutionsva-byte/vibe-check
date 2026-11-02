@@ -1,0 +1,379 @@
+{
+  "dataset_sha256": "4380c3dbf9ff1678e4e08e2758c86aa01c78c32e473984b3a5bd1372aa12e43f",
+  "scanner_sha256": {
+    "__init__.py": "824c3e42f9485cdab690bfc01713cdc8716e9ef84af3277bbd6c6f878241618d",
+    "ai.py": "689c7ce7f8ae3d76b0f72daf49d7d4ec3bddfea5ddba1dceead0bb14d0fb9d3b",
+    "cli.py": "3530fa972e8430ff8a8b3ca27b21ee2a7173d65a2a4e575a7d320623899ef4c2",
+    "js_patterns.py": "bf7f930dd9fab2e3576c95996db44406bafa40a979e3f397936baf49a650977a",
+    "python_patterns.py": "8b57c7e6ac707388573de27c99aca723c328b06ec0fa9c47a9870276163c7078",
+    "report.py": "b26c925de0fe2d81349ea9b680b0f92ce74777440dda08555e3d2bfe572c9c8c",
+    "risks.py": "236bf2687de1f055bba568122d14e07ddcd3ca95a739b0d0065a8535a72f39ed",
+    "secrets.py": "6d2781081dcbe45bcaa4817b9061b656ea0e1b777f1c1eca0502fcc74e59b700"
+  },
+  "git_revision": "ef298c37d1cb0548158fcbea0eab448a257367b7",
+  "case_count": 20,
+  "metrics": {
+    "TP": 10,
+    "FP": 0,
+    "TN": 10,
+    "FN": 0,
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "per_rule": {
+    "aws-access-key": {
+      "TP": 1,
+      "FP": 0,
+      "TN": 0,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "hardcoded-credential": {
+      "TP": 1,
+      "FP": 0,
+      "TN": 5,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "possible-sql-string-building": {
+      "TP": 4,
+      "FP": 0,
+      "TN": 3,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "subprocess-shell-true": {
+      "TP": 4,
+      "FP": 0,
+      "TN": 2,
+      "FN": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    }
+  },
+  "cases": [
+    {
+      "id": "H01",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H02",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H03",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H04",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "subprocess-shell-true",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H05",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H06",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H07",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "possible-sql-string-building",
+          2
+        ]
+      ],
+      "actual": [
+        [
+          "possible-sql-string-building",
+          2
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H08",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "possible-sql-string-building",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H09",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "hardcoded-credential",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H10",
+      "group": "heldout",
+      "label": "positive",
+      "expected": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "actual": [
+        [
+          "aws-access-key",
+          1
+        ]
+      ],
+      "TP": 1,
+      "FP": 0,
+      "FN": 0,
+      "TN": 0
+    },
+    {
+      "id": "H11",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H12",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H13",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H14",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H15",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H16",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H17",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H18",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H19",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    },
+    {
+      "id": "H20",
+      "group": "heldout",
+      "label": "negative",
+      "expected": [],
+      "actual": [],
+      "TP": 0,
+      "FP": 0,
+      "FN": 0,
+      "TN": 1
+    }
+  ]
+}

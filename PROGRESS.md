@@ -30,7 +30,19 @@ The working-tree self-scan after building fake test credentials at runtime repor
 
 ## Known limitations
 
-Patterns miss some secrets. JS/TS checks now filter ordinary strings/comments, support basic multiline calls and attribute child-process calls to simple imports; they still do not parse the language or resolve scope/reassigned bindings. Template interpolation, regex literals and Python subprocess aliases remain gaps. Missing-test observation covers only Python naming patterns and cannot establish whether tests exist elsewhere. Python syntax errors are skipped. The access-required message can also indicate a network or certificate failure.
+Patterns miss some secrets. JS/TS checks filter ordinary strings/comments, support basic multiline calls and attribute child-process calls to simple imports; they still do not parse the language or resolve scope/reassigned bindings. Template interpolation and regex literals remain gaps. Basic Python subprocess import aliases are now supported, but arbitrary aliases, dynamic imports and full name/control-flow analysis are not. Generic credentials in documentation/HTML and UI-style names are now skipped, which can miss real secrets in those contexts. Missing-test observation covers only Python naming patterns and cannot establish whether tests exist elsewhere. Python syntax errors are skipped. The access-required message can also indicate a network or certificate failure. XSS, SSRF and full SQL injection detection are not covered.
+
+## Final precision pass and held-out set — 2 November 2026
+
+- Frozen 20 new cases before rule changes: commit `3c7157a`, 10 positive / 10 negative. No case was edited or relabelled after freezing.
+- Removed generic-secret findings in documentation/HTML and UI error-message names; retained provider token/private-key scans in those files. Public rechecks: NodeGoat 7 → 5, PyGoat 22 → 15. Same clone revisions; no app execution or worktree changes.
+- Added subprocess import-alias handling with parameter-shadowing/reassignment checks.
+- Added medium `possible-sql-string-building`, labelled possible SQL string building. It inspects f-strings/string addition directly inside cursor-like execute calls. Query variables, full SQL injection, XSS and SSRF remain outside coverage.
+- `python -m unittest discover -s tests -v`: 31 tests passed before held-out evaluation; no failures. Eight new precision test methods plus a SQL CLI/report test were added to the previous 22 tests.
+- `python benchmark/run.py --output benchmark/results/precision-development.json`: original 90-case development set TP 47 / FP 0 / TN 43 / FN 0. These cases were used for development, not held-out evaluation.
+- Implementation frozen in commit `ef298c3`, then `python benchmark/run.py --cases benchmark/heldout.json --output benchmark/results/heldout-once.json` run once: TP 10 / FP 0 / TN 10 / FN 0, precision/recall both 100% on these 20 cases only.
+- No scanner rules changed after the held-out result. This is a small author-created set, not an independently blinded evaluation. It does not establish general security or accuracy.
+- Full separate metrics, source hashes, tradeoffs and documented misses are in BENCHMARK.md.
 
 ## Frozen benchmark and vulnerable repositories — 2 November 2026
 
