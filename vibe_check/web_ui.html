@@ -39,8 +39,8 @@ input::placeholder{color:#59626a}
 .big{font-family:var(--display);font-stretch:75%;font-weight:700;font-size:clamp(52px,7vw,104px);line-height:1;text-transform:uppercase}
 .v-FIX{background:var(--red);color:#fff}.v-REVIEW{background:var(--ink);color:var(--paper)}.v-SHIP{background:var(--paper)}
 .stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
-.map{position:relative;border-right:2px solid var(--ink);padding:42px 28px;overflow:hidden}
-.orbit{position:relative;width:100%;max-width:680px;aspect-ratio:1;margin:auto}
+.map{position:relative;border-right:2px solid var(--ink);padding:42px 28px;overflow:clip}
+.orbit{position:sticky;top:42px;width:100%;max-width:680px;aspect-ratio:1;margin:auto}
 .dial{position:absolute;inset:7%;border-radius:50%;border:2px solid var(--ink);-webkit-mask:none}
 .ticks{position:absolute;inset:3.5%;border-radius:50%;background:repeating-conic-gradient(var(--ink) 0 .5deg,transparent .5deg 6deg);-webkit-mask:radial-gradient(closest-side,transparent 96%,#000 96.5%);mask:radial-gradient(closest-side,transparent 96%,#000 96.5%)}
 svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -65,9 +65,28 @@ line.on{stroke:var(--red);stroke-width:4}
 .sev.high{background:var(--red);border-color:var(--red);color:#fff}.sev.medium{background:var(--ink);color:var(--paper)}
 .rule{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:27px;line-height:1.1;overflow-wrap:anywhere}
 .where{font-size:14px;margin-top:5px;overflow-wrap:anywhere}
-.ask{margin-top:10px;font-size:14px;font-weight:700;border-bottom:2px solid var(--ink);padding:2px 0}
-.ask:hover{color:#b0120b;border-color:#b0120b}
-.ai{margin:10px 0 0;line-height:1.5;font-size:15px}
+.code{margin:10px 0 0;background:var(--ink);color:var(--paper);padding:10px 0;font-size:13px;line-height:1.55;overflow-x:auto}
+.code div{display:flex;gap:12px;padding:0 12px;white-space:pre;width:max-content;min-width:100%}
+.code i{font-style:normal;color:#8d979e;min-width:3ch;text-align:right;user-select:none}
+.code .hit{background:var(--red);color:#fff}.code .hit i{color:#fff}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.act{font-size:14px;font-weight:700;border:2px solid var(--ink);padding:7px 12px;transition:background .12s,color .12s}
+.act:hover{background:var(--ink);color:var(--paper)}
+.act[aria-expanded=true]{background:var(--ink);color:var(--paper)}
+.chat{margin-top:12px;border:2px solid var(--ink);background:var(--steel)}
+.chat[hidden]{display:none}
+.log{padding:0 12px}
+.q,.a{margin:12px 0;line-height:1.5;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.q{font-weight:700}.q::before{content:"You  ";color:#b0120b}
+.a.wait{animation:blink 1s steps(2) infinite}.a.bad{color:#b0120b;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px}
+.chip{font-size:13px;font-weight:700;border:2px solid var(--ink);background:var(--paper);padding:5px 9px}
+.chip:hover{background:var(--ink);color:var(--paper)}
+.send{display:flex;border-top:2px solid var(--ink);background:var(--paper)}
+.send input{padding:10px 12px;font-size:15px}
+.send button{background:var(--ink);color:var(--paper);padding:0 16px;font-weight:700;font-size:14px}
+.send button:disabled{background:#59626a;cursor:wait}
+.privacy{font-size:12px;line-height:1.45;padding:8px 12px;border-top:2px solid var(--ink)}
 .clean{border-top:2px solid var(--ink);padding-top:14px;line-height:1.5}
 footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-height:1.5}
 @media(max-width:860px){.bar{padding:12px 16px}.bar span:last-child{display:none}.mark{padding:18px 12px 8px;font-size:21vw}.intake{display:block;padding:0 16px}.lede{padding-bottom:0}.stage{grid-template-columns:1fr}.map{border-right:0;border-bottom:2px solid var(--ink);padding:26px 8px}.tally{grid-template-columns:repeat(3,1fr)}.tally>div{padding:12px 16px}.tally>div:first-child{grid-column:1/-1;border-right:0;border-bottom:2px solid var(--ink)}.detail,footer{padding-left:16px;padding-right:16px}#phase{padding:18px 16px}.name{font-size:11px;max-width:92px}}
@@ -83,7 +102,7 @@ footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-hei
 <label for="u">Public GitHub repository</label>
 <div class="row"><input id="u" placeholder="https://github.com/owner/repo" autocomplete="off" spellcheck="false" required><button id="go">Inspect</button></div>
 <p id="err" role="alert"></p>
-<p class="fine">Cloned to a temporary folder, never executed, then deleted.</p>
+<p class="fine">Cloned to a temporary folder, never executed, then deleted. Masked lines around findings stay in memory for chat.</p>
 </form>
 </section>
 <div id="phase" role="status"></div>
@@ -92,7 +111,7 @@ footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-hei
 <div id="vbox"><small id="repo"></small><div class="big" id="verdict"></div></div>
 <div><small>High</small><div class="big" id="nh">0</div></div>
 <div><small>Medium</small><div class="big" id="nm">0</div></div>
-<div><small>Low</small><div class="big" id="nl">0</div></div>
+<div><small>Info</small><div class="big" id="ni">0</div></div>
 </div>
 <div class="stage">
 <div class="map"><div class="orbit" id="orbit"><div class="ticks"></div><div class="dial"></div><svg id="spokes" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="hub"><b id="total">0</b><span id="noun">findings</span></div></div></div>
@@ -103,20 +122,60 @@ footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-hei
 <script>
 const $=id=>document.getElementById(id),el=(t,c,x)=>{const n=document.createElement(t);if(c)n.className=c;if(x!==undefined)n.textContent=x;return n};
 const still=matchMedia('(prefers-reduced-motion:reduce)').matches,RADIUS=38;
-let nodes=[],angle=-90,target=null,selected=null,last=0,raf=0,drift=true;
+let nodes=[],angle=-90,target=null,selected=null,last=0,raf=0,drift=true,scanId='';
 const post=async(path,body)=>{
   const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   const d=await r.json();if(!r.ok)throw new Error(d.error||'Request failed.');return d;
 };
 const label=n=>n==='(root)'?'Top level':n==='(other)'?'Other folders':n;
+const STARTERS=['Why was this flagged?','Could this be a false alarm?','How do I fix it?'];
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);return true}catch{}
+  const t=el('textarea');t.value=text;document.body.append(t);t.select();
+  let ok=false;try{ok=document.execCommand('copy')}catch{}
+  t.remove();return ok;
+}
+function codeBlock(f){
+  const box=el('div','code');box.tabIndex=0;box.setAttribute('aria-label',`Code around line ${f.line}`);
+  f.snippet.forEach(r=>{const row=el('div',r.flagged?'hit':'');row.append(el('i','',r.line),el('span','',r.text||' '));box.append(row)});
+  return box;
+}
+function chatBox(f){
+  const box=el('div','chat');box.hidden=true;
+  const log=el('div','log'),chips=el('div','chips'),form=el('form','send');
+  const input=el('input');input.placeholder='Ask about this finding';input.maxLength=500;input.setAttribute('aria-label','Question about this finding');
+  const send=el('button','','Ask');
+  const history=[];let busy=false;
+  const ask=async q=>{
+    if(busy||!q.trim())return;
+    busy=true;send.disabled=true;chips.remove();
+    const wait=el('p','a wait','Thinking');
+    log.append(el('p','q',q),wait);input.value='';
+    try{
+      const d=await post('/api/chat',{scan:scanId,finding:f.id,question:q,history});
+      wait.className='a';wait.textContent=d.answer;
+      history.push({role:'user',content:q},{role:'assistant',content:d.answer.slice(0,1200)});
+    }catch(e){wait.className='a bad';wait.textContent=e.message}
+    busy=false;send.disabled=false;input.focus();
+  };
+  STARTERS.forEach(q=>{const b=el('button','chip',q);b.type='button';b.onclick=()=>ask(q);chips.append(b)});
+  form.onsubmit=e=>{e.preventDefault();ask(input.value)};
+  form.append(input,send);
+  box.append(log,chips,form,el('p','privacy','Sends this finding and the masked lines shown above to BharatCode. Answers can be wrong, so check them against the code.'));
+  return box;
+}
 function item(f){
+  if(f.node)return f.node;
   const c=el('article','item');
   c.append(el('span','sev '+f.severity,f.severity),el('div','rule',f.rule),el('div','where',`${f.path}:${f.line} — ${f.evidence}`));
-  const b=el('button','ask','Explain this');b.type='button';const x=el('p','ai');x.hidden=true;
-  b.onclick=async()=>{b.disabled=true;b.textContent='Asking BharatCode…';
-    try{const d=await post('/api/explain',{rule:f.rule});x.textContent=d.explanation;x.hidden=false;b.remove()}
-    catch(e){x.textContent=e.message;x.hidden=false;b.disabled=false;b.textContent='Try again'}};
-  c.append(b,x);return c;
+  if(f.snippet.length)c.append(codeBlock(f));
+  const acts=el('div','acts'),copy=el('button','act','Copy fix prompt'),talk=el('button','act','Ask about this');
+  copy.type=talk.type='button';talk.setAttribute('aria-expanded','false');
+  const box=chatBox(f);
+  copy.onclick=async()=>{const ok=await copyText(f.fix_prompt);copy.textContent=ok?'Copied':'Copy failed';setTimeout(()=>copy.textContent='Copy fix prompt',1600)};
+  talk.onclick=()=>{box.hidden=!box.hidden;talk.setAttribute('aria-expanded',String(!box.hidden))};
+  acts.append(copy,talk);c.append(acts,box);
+  f.node=c;return c;
 }
 function open(n,focusAngle=true){
   selected=n;nodes.forEach(m=>{m.btn.classList.toggle('sel',m===n);m.btn.setAttribute('aria-pressed',m===n);m.line.classList.toggle('on',m===n)});
@@ -155,8 +214,9 @@ function buildOrbit(d){
 }
 function show(d){
   const n=s=>d.findings.filter(f=>f.severity===s).length;
+  scanId=d.scan;
   $('repo').textContent=d.repo;$('verdict').textContent=d.verdict;$('vbox').className='v-'+d.verdict.split(' ')[0];
-  $('nh').textContent=n('high');$('nm').textContent=n('medium');$('nl').textContent=n('low');$('total').textContent=d.findings.length;$('noun').textContent=d.findings.length===1?'finding':'findings';
+  $('nh').textContent=n('high');$('nm').textContent=n('medium');$('ni').textContent=n('info');$('total').textContent=d.findings.length;$('noun').textContent=d.findings.length===1?'finding':'findings';
   $('results').style.display='block';buildOrbit(d);$('results').scrollIntoView({behavior:still?'auto':'smooth'});
 }
 const steps=['Cloning','Reading','Matching','Sorting'];let timer;

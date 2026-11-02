@@ -7,26 +7,34 @@ import stat
 import subprocess
 import tempfile
 import threading
+import uuid
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from .ai import DESCRIPTIONS, explain
+from .ai import chat, fix_prompt
 from .report import verdict
 from .risks import scan as scan_risks
-from .secrets import Finding, scan
+from .secrets import SECRET_RULES, masked_lines, scan
 
 HOST = '127.0.0.1'
 PORT = 8765
 CLONE_TIMEOUT = 60
 MAX_REPO_BYTES = 200 * 1024 * 1024
-MAX_BODY_BYTES = 4096
+MAX_BODY_BYTES = 16384
+MAX_QUESTION = 500
+MAX_HISTORY = 6
+MAX_TURN = 1200
+SNIPPET_RADIUS = 3
+MAX_LINE = 200
+FILE_LEVEL_RULES = {'no-python-test-files-found'}
 MAX_FOLDERS = 11
 ROOT_FOLDER = '(root)'
 OTHER_FOLDER = '(other)'
 REPO_URL = re.compile(r'https://github\.com/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))/([A-Za-z0-9._-]{1,100}?)(?:\.git)?/?')
 PAGE = Path(__file__).with_name('web_ui.html')
 scan_lock = threading.Lock()
+latest_scan = {}
 
 
 class ScanError(Exception):
@@ -91,6 +99,21 @@ def summarize_folders(root, findings):
     return folders, set(kept)
 
 
+def snippet_for(root, finding, findings):
+    """Return masked lines around a finding; lines flagged as secrets are never included."""
+    if finding.rule in FILE_LEVEL_RULES:
+        return []
+    hidden = {f.line for f in findings if f.path == finding.path and f.rule in SECRET_RULES}
+    try:
+        content = (root / finding.path).read_text(encoding='utf-8')
+    except (OSError, UnicodeDecodeError):
+        return []
+    lines = masked_lines(content, hidden)
+    first = max(finding.line - SNIPPET_RADIUS, 1)
+    last = min(finding.line + SNIPPET_RADIUS, len(lines))
+    return [{'line': number, 'text': lines[number - 1][:MAX_LINE], 'flagged': number == finding.line} for number in range(first, last + 1)]
+
+
 def scan_repo(url, runner=subprocess.run):
     owner, name = parse_repo_url(url)
     workspace = Path(tempfile.mkdtemp(prefix='vibe-check-'))
@@ -104,13 +127,33 @@ def scan_repo(url, runner=subprocess.run):
         findings = scan(target) + scan_risks(target)
         folders, kept = summarize_folders(target, findings)
         return {
+            'scan': uuid.uuid4().hex,
             'repo': f'{owner}/{name}',
             'verdict': verdict(findings),
             'folders': folders,
-            'findings': [{'rule': f.rule, 'path': f.path, 'line': f.line, 'evidence': f.masked_value, 'severity': f.severity, 'folder': folder_of(f.path) if folder_of(f.path) in kept else OTHER_FOLDER} for f in findings],
+            'findings': [{
+                'id': index,
+                'rule': f.rule,
+                'path': f.path,
+                'line': f.line,
+                'evidence': f.masked_value,
+                'severity': f.severity,
+                'folder': folder_of(f.path) if folder_of(f.path) in kept else OTHER_FOLDER,
+                'snippet': snippet_for(target, f, findings),
+                'fix_prompt': fix_prompt(f.rule, f.path, f.line),
+            } for index, f in enumerate(findings)],
         }
     finally:
         remove_tree(workspace)
+
+
+def clean_history(history):
+    if history is None:
+        return []
+    valid = isinstance(history, list) and all(isinstance(turn, dict) and turn.get('role') in {'user', 'assistant'} and isinstance(turn.get('content'), str) and len(turn['content']) <= MAX_TURN for turn in history)
+    if not valid:
+        raise ScanError('Invalid chat history.')
+    return [{'role': turn['role'], 'content': turn['content']} for turn in history[-MAX_HISTORY:]]
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -171,11 +214,14 @@ class Handler(BaseHTTPRequestHandler):
                 if not scan_lock.acquire(blocking=False):
                     return self.send_json(429, {'error': 'A scan is already running.'})
                 try:
-                    return self.send_json(200, scan_repo(value.get('url')))
+                    result = scan_repo(value.get('url'))
+                    latest_scan.clear()
+                    latest_scan.update(result)
+                    return self.send_json(200, result)
                 finally:
                     scan_lock.release()
-            if self.path == '/api/explain':
-                return self.send_json(200, self.explain(value.get('rule')))
+            if self.path == '/api/chat':
+                return self.send_json(200, self.answer(value))
             self.send_json(404, {'error': 'Not found.'})
         except PermissionError:
             self.send_json(403, {'error': 'Forbidden origin.'})
@@ -184,17 +230,23 @@ class Handler(BaseHTTPRequestHandler):
         except OSError:
             self.send_json(500, {'error': 'The scan failed on this computer.'})
 
-    def explain(self, rule):
-        if rule not in DESCRIPTIONS:
-            raise ScanError('No explanation exists for that rule.')
+    def answer(self, value):
+        findings = latest_scan.get('findings', [])
+        index = value.get('finding')
+        if not latest_scan or value.get('scan') != latest_scan.get('scan') or type(index) is not int or not 0 <= index < len(findings):
+            raise ScanError('Scan the repository again to ask about this finding.')
+        question = value.get('question')
+        if not isinstance(question, str) or not question.strip() or len(question) > MAX_QUESTION:
+            raise ScanError(f'Ask a question of up to {MAX_QUESTION} characters.')
+        history = clean_history(value.get('history'))
         key = os.environ.get('BHARATCODE_API_KEY')
         if not key:
-            raise ScanError('Set BHARATCODE_API_KEY to use explanations.')
-        # ai.explain sends only the fixed rule description, never repository content.
-        text = explain(Finding(rule, '', 0, ''), key)
+            raise ScanError('Set BHARATCODE_API_KEY to use chat. Scan results still work without it.')
+        # Only this finding's masked snippet leaves the machine, never the repository.
+        text = chat(findings[index], history, question.strip(), key)
         if not text:
-            raise ScanError('BharatCode did not return an explanation.')
-        return {'explanation': text}
+            raise ScanError('BharatCode did not answer. Scan results still work without it.')
+        return {'answer': text}
 
 
 def main():

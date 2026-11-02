@@ -63,5 +63,5 @@ The final precision pass also has a separate 20-case held-out set, frozen before
 
 ## Local web UI
 
-Run `python -m vibe_check.web` from this folder, then paste a public GitHub repository link. It listens only on 127.0.0.1. Repositories are shallow-cloned to a temporary folder, never executed, and deleted after scanning. The Explain button sends only the fixed rule description to BharatCode, never repository content, and requires `BHARATCODE_API_KEY`.
+Run `python -m vibe_check.web` from this folder, then paste a public GitHub repository link. It listens only on 127.0.0.1. Repositories are shallow-cloned to a temporary folder, never executed, and deleted after scanning. Each finding shows masked lines of nearby code and has a Copy fix prompt button. Ask about this sends that one finding and its masked lines to BharatCode when you ask a question, never the whole repository, and requires `BHARATCODE_API_KEY`. Lines flagged as secrets are hidden, and repository text is passed as untrusted data. Masking is best effort, so don't use chat on code you may not share. Scan results still work without a key.
 

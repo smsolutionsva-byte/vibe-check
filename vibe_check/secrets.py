@@ -15,6 +15,10 @@ DOC_SUFFIXES = {'.md', '.markdown', '.rst', '.txt', '.html', '.htm', '.adoc'}
 AWS = re.compile(r'\b(?:AKIA|ASIA)[A-Z0-9]{16}\b')
 GITHUB = re.compile(r'\b(?:gh[pousr]_[A-Za-z0-9]{36,255}|github_pat_[A-Za-z0-9_]{22,255})\b')
 PRIVATE = re.compile(r'-----BEGIN (?:[A-Z0-9 ]*PRIVATE KEY|PGP PRIVATE KEY BLOCK)-----')
+URL_PASSWORD = re.compile(r'(://[^/\s:@]+:)[^/\s@]+@')
+LONG_TOKEN = re.compile(r'(?<![A-Za-z0-9+/_-])[A-Za-z0-9+/_-]{32,}={0,2}')
+HIDDEN_LINE = '[line hidden: possible secret]'
+SECRET_RULES = {'aws-access-key', 'github-token', 'private-key-block', 'hardcoded-credential'}
 PLACEHOLDER = re.compile(r'(?i)^(?:your[_-]?.*|<[^>]+>|\$\{?\w+\}?|\{\{.*\}\}|secret[_-]key|base64 encoded random bytes|(?:example|sample|dummy|fake|test|replace|placeholder|changeme|redacted)(?:[_-].*)?)$')
 
 
@@ -29,6 +33,34 @@ class Finding:
 
 def mask(value: str) -> str:
     return value[:4] + '****' if len(value) > 4 else '****'
+
+
+def mask_line(line):
+    """Hide likely secret values in a line of source shown outside the scanner."""
+    line = AWS.sub(lambda m: mask(m.group()), line)
+    line = GITHUB.sub(lambda m: mask(m.group()), line)
+    line = URL_PASSWORD.sub(lambda m: m.group(1) + '****@', line)
+    for pattern in (ASSIGN, ENV_ASSIGN):
+        for match in reversed(list(pattern.finditer(line))):
+            if credential_name(match.group('name')):
+                line = line[:match.start('value')] + mask(match.group('value')) + line[match.end('value'):]
+    return LONG_TOKEN.sub(lambda m: mask(m.group()), line)
+
+
+def masked_lines(content, hidden=()):
+    """Mask a file line by line, dropping private key blocks and lines in hidden."""
+    result = []
+    in_private = False
+    for number, line in enumerate(content.splitlines(), 1):
+        if PRIVATE.search(line):
+            in_private = True
+        if in_private or number in hidden:
+            result.append(HIDDEN_LINE)
+        else:
+            result.append(mask_line(line))
+        if in_private and line.startswith('-----END '):
+            in_private = False
+    return result
 
 
 def credential_name(name):
