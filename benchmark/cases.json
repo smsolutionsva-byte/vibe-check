@@ -1,0 +1,1317 @@
+[
+  {
+    "id": "P01",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "api_key = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P02",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "secret_key = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P03",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "access_token = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P04",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "password = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P05",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const apiKey = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P06",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const config = {api_key: \"{{FAKE}}\"};\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P07",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "const apiKey: string = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P08",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "const accessToken: string = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P09",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.go",
+    "source": "apiKey := \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P10",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.go",
+    "source": "var api_key = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P11",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.php",
+    "source": "<?php $api_key = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P12",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.rb",
+    "source": "api_key = \"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P13",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.rs",
+    "source": "let api_key: &str = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P14",
+    "group": "positive",
+    "label": "positive",
+    "file": ".env",
+    "source": "API_KEY={{FAKE}}\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P15",
+    "group": "positive",
+    "label": "positive",
+    "file": ".env",
+    "source": "export API_KEY=\"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P16",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "api_key = b\"{{FAKE}}\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P17",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "token = \"{{AWS}}\"\n",
+    "target_rules": [
+      "aws-access-key"
+    ],
+    "expected": [
+      {
+        "rule": "aws-access-key",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P18",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.go",
+    "source": "key := \"{{AWS}}\"\n",
+    "target_rules": [
+      "aws-access-key"
+    ],
+    "expected": [
+      {
+        "rule": "aws-access-key",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P19",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const token = \"{{GITHUB}}\";\n",
+    "target_rules": [
+      "github-token"
+    ],
+    "expected": [
+      {
+        "rule": "github-token",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P20",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.rs",
+    "source": "let token = \"{{GITHUB_PAT}}\";\n",
+    "target_rules": [
+      "github-token"
+    ],
+    "expected": [
+      {
+        "rule": "github-token",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P21",
+    "group": "positive",
+    "label": "positive",
+    "file": "key.pem",
+    "source": "{{PEM_BEGIN}}\nNOT-A-REAL-KEY\n-----END RSA PRIVATE KEY-----\n",
+    "target_rules": [
+      "private-key-block"
+    ],
+    "expected": [
+      {
+        "rule": "private-key-block",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P22",
+    "group": "positive",
+    "label": "positive",
+    "file": "key.asc",
+    "source": "{{PGP_BEGIN}}\nNOT-A-REAL-KEY\n-----END PGP PRIVATE KEY BLOCK-----\n",
+    "target_rules": [
+      "private-key-block"
+    ],
+    "expected": [
+      {
+        "rule": "private-key-block",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P23",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.rb",
+    "source": "token = \"{{GITHUB}}\"\n",
+    "target_rules": [
+      "github-token"
+    ],
+    "expected": [
+      {
+        "rule": "github-token",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P24",
+    "group": "positive",
+    "label": "positive",
+    "file": ".env",
+    "source": "ACCESS_ID={{AWS}}\n",
+    "target_rules": [
+      "aws-access-key"
+    ],
+    "expected": [
+      {
+        "rule": "aws-access-key",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P25",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "eval(user_input)\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [
+      {
+        "rule": "dynamic-code-execution",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P26",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "exec(user_input)\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [
+      {
+        "rule": "dynamic-code-execution",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P27",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "import subprocess\nsubprocess.run(command, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P28",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "import subprocess\nsubprocess.Popen(command, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P29",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "eval(input);\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [
+      {
+        "rule": "js-eval",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P30",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "eval(input);\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [
+      {
+        "rule": "js-eval",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P31",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.mjs",
+    "source": "eval(input);\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [
+      {
+        "rule": "js-eval",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P32",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "new Function(code);\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [
+      {
+        "rule": "js-new-function",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P33",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "new Function(\"x\", code);\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [
+      {
+        "rule": "js-new-function",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P34",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.cjs",
+    "source": "new Function(code);\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [
+      {
+        "rule": "js-new-function",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P35",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const cp = require(\"child_process\");\ncp.exec(\"echo \" + input);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P36",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const {exec} = require(\"child_process\");\nexec(\"echo \" + input);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P37",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "import {exec} from \"node:child_process\";\nexec(\"echo \" + input);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P38",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.mjs",
+    "source": "import * as cp from \"child_process\";\ncp.exec(\"echo \" + input);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P39",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "eval(\n    user_input\n)\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [
+      {
+        "rule": "dynamic-code-execution",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "P40",
+    "group": "positive",
+    "label": "positive",
+    "file": "app.py",
+    "source": "exec(\n    user_input\n)\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [
+      {
+        "rule": "dynamic-code-execution",
+        "line": 1
+      }
+    ],
+    "reason": "Literal credential or code-execution review pattern."
+  },
+  {
+    "id": "N01",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "api_key = \"your_api_key\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N02",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const apiKey = \"placeholder\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N03",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "const apiKey = \"<YOUR_API_KEY>\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N04",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.go",
+    "source": "apiKey := \"changeme\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N05",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.php",
+    "source": "<?php $api_key = \"example_key\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N06",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rb",
+    "source": "secret_key = \"secret-key\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N07",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rs",
+    "source": "let api_key = \"your-key-here\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N08",
+    "group": "negative",
+    "label": "negative",
+    "file": ".env",
+    "source": "API_KEY=your_api_key\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N09",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "api_key = os.environ[\"API_KEY\"]\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N10",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const apiKey = process.env.API_KEY;\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N11",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "const apiKey: string = process.env.API_KEY!;\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N12",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.go",
+    "source": "apiKey := os.Getenv(\"API_KEY\")\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N13",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.php",
+    "source": "<?php $api_key = getenv(\"API_KEY\");\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N14",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rb",
+    "source": "api_key = ENV.fetch(\"API_KEY\")\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N15",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rs",
+    "source": "let api_key = std::env::var(\"API_KEY\");\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N16",
+    "group": "negative",
+    "label": "negative",
+    "file": ".env",
+    "source": "API_KEY=${API_KEY}\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N17",
+    "group": "negative",
+    "label": "negative",
+    "file": "README.md",
+    "source": "Example: API_KEY=\"your_api_key\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N18",
+    "group": "negative",
+    "label": "negative",
+    "file": "guide.rst",
+    "source": "export SECRET_KEY=\"base64 encoded random bytes\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N19",
+    "group": "negative",
+    "label": "negative",
+    "file": "README.md",
+    "source": "Never use eval(user_input).\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N20",
+    "group": "negative",
+    "label": "negative",
+    "file": "guide.txt",
+    "source": "Avoid new Function(code) in your application.\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N21",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const m = /[a-z]+/.exec(text);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N22",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "const m = /abc/.exec(text + suffix);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N23",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "import subprocess\nsubprocess.run([\"echo\", name], shell=False)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N24",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "message = \"eval(user_input)\"\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N25",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "# exec(user_input)\nvalue = 1\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N26",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "// eval(input);\nconst x = 1;\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N27",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "/* new Function(code) */\nconst x = 1;\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N28",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const message = \"eval(input)\";\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N29",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "const message = \"new Function(code)\";\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N30",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "/*\neval(input);\n*/\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N31",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "/*\nnew Function(code);\n*/\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N32",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "count = sum([1, 2, 3])\n",
+    "target_rules": [
+      "dynamic-code-execution"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N33",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const count = [1, 2].length;\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N34",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.go",
+    "source": "fmt.Println(\"hello\")\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N35",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.php",
+    "source": "<?php echo \"hello\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N36",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rb",
+    "source": "puts \"hello\"\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N37",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.rs",
+    "source": "fn main() { println!(\"hello\"); }\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N38",
+    "group": "negative",
+    "label": "negative",
+    "file": ".env",
+    "source": "PORT=8080\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N39",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.py",
+    "source": "# api_key = \"{{FAKE}}\"\nvalue = 1\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "N40",
+    "group": "negative",
+    "label": "negative",
+    "file": "app.js",
+    "source": "// const apiKey = \"{{FAKE}}\";\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [],
+    "reason": "No actionable review pattern; safe or illustrative context."
+  },
+  {
+    "id": "T01",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.py",
+    "source": "import subprocess as sp\nsp.run(command, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Imported module alias, shell explicitly enabled."
+  },
+  {
+    "id": "T02",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.py",
+    "source": "from subprocess import run as launch\nlaunch(command, shell=True)\n",
+    "target_rules": [
+      "subprocess-shell-true"
+    ],
+    "expected": [
+      {
+        "rule": "subprocess-shell-true",
+        "line": 2
+      }
+    ],
+    "reason": "Imported call alias, shell explicitly enabled."
+  },
+  {
+    "id": "T03",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "eval\n(\n input\n);\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [
+      {
+        "rule": "js-eval",
+        "line": 1
+      }
+    ],
+    "reason": "Multiline eval call."
+  },
+  {
+    "id": "T04",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.js",
+    "source": "new\nFunction(code);\n",
+    "target_rules": [
+      "js-new-function"
+    ],
+    "expected": [
+      {
+        "rule": "js-new-function",
+        "line": 1
+      }
+    ],
+    "reason": "Multiline Function constructor."
+  },
+  {
+    "id": "T05",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.ts",
+    "source": "import {exec as launch} from \"child_process\";\nlaunch(\"echo \" + input);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Named child-process import alias."
+  },
+  {
+    "id": "T06",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.py",
+    "source": "api_key = (\n \"{{FAKE}}\"\n)\n",
+    "target_rules": [
+      "hardcoded-credential"
+    ],
+    "expected": [
+      {
+        "rule": "hardcoded-credential",
+        "line": 1
+      }
+    ],
+    "reason": "Multiline Python literal assignment."
+  },
+  {
+    "id": "T07",
+    "group": "tricky",
+    "label": "positive",
+    "file": "app.js",
+    "source": "const cp = require(\"child_process\");\ncp.exec(\n \"echo \" + input\n);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [
+      {
+        "rule": "js-child-process-concatenation",
+        "line": 2
+      }
+    ],
+    "reason": "Multiline child-process concatenation."
+  },
+  {
+    "id": "T08",
+    "group": "tricky",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const x = 1; // eval(input);\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "Inline comment, not a call."
+  },
+  {
+    "id": "T09",
+    "group": "tricky",
+    "label": "negative",
+    "file": "app.ts",
+    "source": "const doc = `eval(input)`;\n",
+    "target_rules": [
+      "js-eval"
+    ],
+    "expected": [],
+    "reason": "Plain template text without interpolation."
+  },
+  {
+    "id": "T10",
+    "group": "tricky",
+    "label": "negative",
+    "file": "app.js",
+    "source": "const cp = require(\"child_process\");\nconst result = regex.exec(text + suffix);\n",
+    "target_rules": [
+      "js-child-process-concatenation"
+    ],
+    "expected": [],
+    "reason": "Unrelated regex method despite child-process import."
+  }
+]
