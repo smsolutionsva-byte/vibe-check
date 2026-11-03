@@ -64,7 +64,8 @@ ECHOED_BLOCK = re.compile(r'<finding_data>.*?</finding_data>', re.DOTALL)
 
 def complete(messages, key, opener, timeout=20):
     use_current_certificates()
-    payload = {'model': MODEL, 'messages': messages}
+    # Model thinking took 18 to 75+ seconds; these replies are short, so skip it.
+    payload = {'model': MODEL, 'messages': messages, 'chat_template_kwargs': {'enable_thinking': False}}
     request = urllib.request.Request(URL, data=json.dumps(payload).encode(), headers={'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, method='POST')
     try:
         with opener(request, timeout=timeout) as response:
@@ -101,7 +102,7 @@ def chat(finding, history, question, key, opener=urllib.request.urlopen):
     messages = [{'role': 'system', 'content': CHAT_SYSTEM + '\n\n' + finding_block(finding)}]
     messages += [{'role': turn['role'], 'content': turn['content']} for turn in history]
     messages.append({'role': 'user', 'content': question})
-    text = complete(messages, key, opener, timeout=30)
+    text = complete(messages, key, opener, timeout=60)
     # Models sometimes echo the data block; the page should show only the answer.
     return ECHOED_BLOCK.sub('', text).strip() or None if text else None
 

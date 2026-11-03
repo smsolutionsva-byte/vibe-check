@@ -150,6 +150,11 @@ class ChatPromptTests(unittest.TestCase):
         self.assertTrue(messages[0]['content'].endswith('</finding_data>'))
         self.assertEqual(messages[-1], {'role': 'user', 'content': 'Why?'})
 
+    def test_chat_skips_model_thinking(self):
+        sent, opener = self.capture()
+        chat(self.finding, [], 'Why?', 'k', opener)
+        self.assertEqual(sent['body']['chat_template_kwargs'], {'enable_thinking': False})
+
     def test_echoed_data_block_is_removed(self):
         _, opener = self.capture(b'{"choices":[{"message":{"content":"<finding_data>{}</finding_data>\\n\\nReal answer."}}]}')
         self.assertEqual(chat(self.finding, [], 'Why?', 'k', opener), 'Real answer.')
