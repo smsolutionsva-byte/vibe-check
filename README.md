@@ -65,3 +65,5 @@ The final precision pass also has a separate 20-case held-out set, frozen before
 
 Run `python -m vibe_check.web` from this folder, then paste a public GitHub repository link. It listens only on 127.0.0.1. Repositories are shallow-cloned to a temporary folder, never executed, and deleted after scanning. Each finding shows masked lines of nearby code and has a Copy fix prompt button. Ask about this sends that one finding and its masked lines to BharatCode when you ask a question, never the whole repository, and requires `BHARATCODE_API_KEY`. Lines flagged as secrets are hidden, and repository text is passed as untrusted data. Masking is best effort, so don't use chat on code you may not share. Scan results still work without a key.
 
+No repository handy? Load a saved scan of OWASP NodeGoat (`vibe_check/example_nodegoat.json`, a deliberately vulnerable app) from the page. It needs no network for the scan, and chat works on it like a live scan.
+

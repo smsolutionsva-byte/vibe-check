@@ -33,6 +33,7 @@ ROOT_FOLDER = '(root)'
 OTHER_FOLDER = '(other)'
 REPO_URL = re.compile(r'https://github\.com/([A-Za-z0-9](?:[A-Za-z0-9-]{0,38}))/([A-Za-z0-9._-]{1,100}?)(?:\.git)?/?')
 PAGE = Path(__file__).with_name('web_ui.html')
+EXAMPLE = Path(__file__).with_name('example_nodegoat.json')
 scan_lock = threading.Lock()
 latest_scan = {}
 
@@ -147,6 +148,12 @@ def scan_repo(url, runner=subprocess.run):
         remove_tree(workspace)
 
 
+def load_example():
+    """A saved scan of OWASP NodeGoat, so the demo works without cloning."""
+    result = json.loads(EXAMPLE.read_text(encoding='utf-8'))
+    return {**result, 'scan': uuid.uuid4().hex, 'example': True}
+
+
 def clean_history(history):
     if history is None:
         return []
@@ -220,6 +227,11 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send_json(200, result)
                 finally:
                     scan_lock.release()
+            if self.path == '/api/example':
+                result = load_example()
+                latest_scan.clear()
+                latest_scan.update(result)
+                return self.send_json(200, result)
             if self.path == '/api/chat':
                 return self.send_json(200, self.answer(value))
             self.send_json(404, {'error': 'Not found.'})

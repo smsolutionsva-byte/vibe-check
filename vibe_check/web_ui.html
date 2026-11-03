@@ -35,12 +35,27 @@ input::placeholder{color:#59626a}
 .tally{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;border-bottom:2px solid var(--ink)}
 .tally>div{padding:14px 28px 12px;border-right:2px solid var(--ink)}
 .tally>div:last-child{border-right:0}
-.tally small{display:block;font-size:14px;word-break:break-all}
+.tally small{display:block;font-size:14px;overflow-wrap:anywhere}
 .big{font-family:var(--display);font-stretch:75%;font-weight:700;font-size:clamp(52px,7vw,104px);line-height:1;text-transform:uppercase}
 .v-FIX{background:var(--red);color:#fff}.v-REVIEW{background:var(--ink);color:var(--paper)}.v-SHIP{background:var(--paper)}
-.stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
-.map{position:relative;border-right:2px solid var(--ink);padding:42px 28px;overflow:clip}
-.orbit{position:sticky;top:42px;width:100%;max-width:680px;aspect-ratio:1;margin:auto}
+.demo{margin-top:12px;font-size:14px;font-weight:700;padding:0;border-bottom:2px solid var(--red);text-align:left}
+.demo:hover{color:#b0120b}
+.demo:disabled{opacity:.5;cursor:wait}
+.list{border-bottom:2px solid var(--ink)}
+.list-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:16px 28px 10px}
+.list-head h3{font-family:var(--display);font-stretch:85%;font-weight:700;font-size:26px;text-transform:uppercase;margin:0;white-space:nowrap}
+.list-head span{font-size:14px}
+.frow{display:grid;grid-template-columns:92px minmax(0,1.1fr) minmax(0,2fr) minmax(0,.7fr);gap:18px;align-items:baseline;width:100%;text-align:left;padding:9px 28px;border-top:1px solid var(--steel-2);font-size:14px}
+.frow:hover,.frow.sel{background:var(--paper)}
+.frow .sev{margin:0;justify-self:start}
+.frow .r{font-weight:700;overflow-wrap:anywhere}
+.frow .p,.frow .fo{overflow-wrap:anywhere}
+.frow .fo{color:#4a535a}
+.more{width:100%;padding:10px 28px;border-top:1px solid var(--steel-2);font-size:14px;font-weight:700;text-align:left}
+.more:hover{background:var(--paper)}
+.stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
+.map{position:sticky;top:0;padding:28px;overflow:clip}
+.orbit{position:relative;width:min(100%,calc(100vh - 80px),680px);aspect-ratio:1;margin:auto}
 .dial{position:absolute;inset:7%;border-radius:50%;border:2px solid var(--ink);-webkit-mask:none}
 .ticks{position:absolute;inset:3.5%;border-radius:50%;background:repeating-conic-gradient(var(--ink) 0 .5deg,transparent .5deg 6deg);-webkit-mask:radial-gradient(closest-side,transparent 96%,#000 96.5%);mask:radial-gradient(closest-side,transparent 96%,#000 96.5%)}
 svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -57,7 +72,14 @@ line.on{stroke:var(--red);stroke-width:4}
 .node:hover .dot,.node.sel .dot{transform:translate(-50%,-50%) scale(1.14)}
 .node.sel .dot{box-shadow:0 0 0 5px var(--steel),0 0 0 8px var(--ink)}
 .name{position:absolute;left:0;top:calc(var(--d)/2 + 7px);transform:translateX(-50%);background:var(--steel);padding:0 5px;font-size:13px;font-weight:700;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}
-.detail{padding:22px 28px 34px;min-width:0;background:var(--paper)}
+.detail{padding:22px 28px 34px;min-width:0;min-height:100%;background:var(--paper);border-left:2px solid var(--ink)}
+.reveal .dot{animation:pop .5s cubic-bezier(.2,.9,.3,1.25) backwards;animation-delay:calc(var(--i)*110ms + 250ms)}
+.reveal .name,.reveal line{animation:fade .4s backwards;animation-delay:calc(var(--i)*110ms + 350ms)}
+.reveal .hub{animation:fade .4s backwards}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-50%) scale(.2)}}
+@keyframes fade{from{opacity:0}}
+.flash .code .hit{animation:flash .45s steps(2) 3}
+@keyframes flash{50%{background:var(--ink)}}
 .detail h2{font-family:var(--display);font-stretch:75%;font-weight:700;font-size:clamp(48px,5.6vw,84px);line-height:.92;margin:0;word-break:break-all;text-transform:uppercase}
 .count{margin:8px 0 20px;font-size:15px}
 .item{border-top:2px solid var(--ink);padding:14px 0}
@@ -89,7 +111,7 @@ line.on{stroke:var(--red);stroke-width:4}
 .privacy{font-size:12px;line-height:1.45;padding:8px 12px;border-top:2px solid var(--ink)}
 .clean{border-top:2px solid var(--ink);padding-top:14px;line-height:1.5}
 footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-height:1.5}
-@media(max-width:860px){.bar{padding:12px 16px}.bar span:last-child{display:none}.mark{padding:18px 12px 8px;font-size:21vw}.intake{display:block;padding:0 16px}.lede{padding-bottom:0}.stage{grid-template-columns:1fr}.map{border-right:0;border-bottom:2px solid var(--ink);padding:26px 8px}.tally{grid-template-columns:repeat(3,1fr)}.tally>div{padding:12px 16px}.tally>div:first-child{grid-column:1/-1;border-right:0;border-bottom:2px solid var(--ink)}.detail,footer{padding-left:16px;padding-right:16px}#phase{padding:18px 16px}.name{font-size:11px;max-width:92px}}
+@media(max-width:860px){.bar{padding:12px 16px}.bar span:last-child{display:none}.mark{padding:18px 12px 8px;font-size:21vw}.intake{display:block;padding:0 16px}.lede{padding-bottom:0}.stage{grid-template-columns:1fr}.map{position:static;border-bottom:2px solid var(--ink);padding:26px 8px}.orbit{width:100%}.detail{border-left:0}.list-head{padding:14px 16px 8px}.frow{grid-template-columns:78px minmax(0,1fr);gap:4px 12px;padding:9px 16px}.frow .p{grid-column:2}.frow .fo{display:none}.more{padding:10px 16px}.tally{grid-template-columns:repeat(3,1fr)}.tally>div{padding:12px 16px}.tally>div:first-child{grid-column:1/-1;border-right:0;border-bottom:2px solid var(--ink)}.detail,footer{padding-left:16px;padding-right:16px}#phase{padding:18px 16px}.name{font-size:11px;max-width:92px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -103,6 +125,7 @@ footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-hei
 <div class="row"><input id="u" placeholder="https://github.com/owner/repo" autocomplete="off" spellcheck="false" required><button id="go">Inspect</button></div>
 <p id="err" role="alert"></p>
 <p class="fine">Cloned to a temporary folder, never executed, then deleted. Masked lines around findings stay in memory for chat.</p>
+<button type="button" class="demo" id="demo">No repo handy? Load a saved scan of OWASP NodeGoat →</button>
 </form>
 </section>
 <div id="phase" role="status"></div>
@@ -113,6 +136,7 @@ footer{border-top:2px solid var(--ink);padding:14px 28px;font-size:14px;line-hei
 <div><small>Medium</small><div class="big" id="nm">0</div></div>
 <div><small>Info</small><div class="big" id="ni">0</div></div>
 </div>
+<div class="list" id="list"></div>
 <div class="stage">
 <div class="map"><div class="orbit" id="orbit"><div class="ticks"></div><div class="dial"></div><svg id="spokes" viewBox="0 0 100 100" aria-hidden="true"></svg><div class="hub"><b id="total">0</b><span id="noun">findings</span></div></div></div>
 <div class="detail" id="detail" aria-live="polite"></div>
@@ -206,27 +230,65 @@ function buildOrbit(d){
     btn.setAttribute('aria-label',`${label(f.name)}: ${items.length} findings`);
     btn.append(el('span','dot',items.length),el('span','name',label(f.name)));
     const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('x1',50);line.setAttribute('y1',50);$('spokes').append(line);
-    const n={...f,items,btn,line,base:i*360/count};btn.onclick=()=>{drift=false;open(n)};$('orbit').append(btn);return n;
+    btn.style.setProperty('--i',i);line.style.setProperty('--i',i);
+    const n={...f,items,btn,line,base:i*360/count};btn.onclick=()=>{clearTimeout(revealTimer);drift=false;open(n)};$('orbit').append(btn);return n;
   });
   angle=-90;target=null;drift=true;place();
-  if(nodes.length)open(nodes[0],false);
   if(!still){last=performance.now();raf=requestAnimationFrame(tick)}else addEventListener('resize',place);
+}
+const RANK={high:0,medium:1,info:2},bySeverity=(a,b)=>RANK[a.severity]-RANK[b.severity],LIST_LIMIT=5;
+let revealTimer=0;
+function focusFinding(f,scroll=true){
+  clearTimeout(revealTimer);
+  const n=nodes.find(m=>m.name===f.folder);if(!n)return;
+  drift=false;open(n);
+  const c=item(f);c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');
+  document.querySelectorAll('.frow').forEach(r=>r.classList.toggle('sel',r.dataset.id===String(f.id)));
+  if(scroll)c.scrollIntoView({behavior:still?'auto':'smooth',block:'nearest'});
+}
+function countUp(node,value){
+  if(still||!value){node.textContent=value;return}
+  const start=performance.now();node.textContent=0;
+  const step=now=>{const k=Math.min(1,(now-start)/700);node.textContent=Math.round(value*(1-(1-k)**3));if(k<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}
+function buildList(d){
+  const box=$('list'),sorted=[...d.findings].sort(bySeverity);
+  box.hidden=!sorted.length;if(!sorted.length)return box.replaceChildren();
+  const head=el('div','list-head');head.append(el('h3','','All findings'),el('span','',`${sorted.length} total · highest severity first`));
+  const rows=sorted.map(f=>{
+    const r=el('button','frow');r.type='button';r.dataset.id=f.id;
+    r.append(el('span','sev '+f.severity,f.severity),el('span','r',f.rule),el('span','p',`${f.path}:${f.line}`),el('span','fo',label(f.folder)));
+    r.onclick=()=>focusFinding(f);return r;
+  });
+  box.replaceChildren(head,...rows.slice(0,LIST_LIMIT));
+  if(rows.length>LIST_LIMIT){const more=el('button','more',`Show all ${rows.length}`);more.type='button';more.onclick=()=>more.replaceWith(...rows.slice(LIST_LIMIT));box.append(more)}
 }
 function show(d){
   const n=s=>d.findings.filter(f=>f.severity===s).length;
   scanId=d.scan;
-  $('repo').textContent=d.repo;$('verdict').textContent=d.verdict;$('vbox').className='v-'+d.verdict.split(' ')[0];
-  $('nh').textContent=n('high');$('nm').textContent=n('medium');$('ni').textContent=n('info');$('total').textContent=d.findings.length;$('noun').textContent=d.findings.length===1?'finding':'findings';
-  $('results').style.display='block';buildOrbit(d);$('results').scrollIntoView({behavior:still?'auto':'smooth'});
+  $('repo').textContent=d.example?`${d.repo} · saved example, scanned ${d.scanned}`:d.repo;
+  $('verdict').textContent=d.verdict;$('vbox').className='v-'+d.verdict.split(' ')[0];
+  countUp($('nh'),n('high'));countUp($('nm'),n('medium'));countUp($('ni'),n('info'));countUp($('total'),d.findings.length);$('noun').textContent=d.findings.length===1?'finding':'findings';
+  $('results').style.display='block';buildList(d);buildOrbit(d);
+  const orbit=$('orbit');orbit.classList.remove('reveal');void orbit.offsetWidth;if(!still)orbit.classList.add('reveal');
+  // Reveal the folders first, then turn the riskiest finding to the top.
+  const first=[...d.findings].sort(bySeverity)[0],start=()=>first?focusFinding(first,false):nodes.length&&open(nodes[0],false);
+  clearTimeout(revealTimer);
+  if(still||!first)start();
+  else{$('detail').replaceChildren(el('p','count',`Mapping ${nodes.length} folders…`));revealTimer=setTimeout(start,nodes.length*110+700)}
+  $('results').scrollIntoView({behavior:still?'auto':'smooth'});
 }
 const steps=['Cloning','Reading','Matching','Sorting'];let timer;
-$('f').onsubmit=async e=>{
-  e.preventDefault();$('err').textContent='';$('results').style.display='none';$('go').disabled=true;
-  const p=$('phase');let i=0;p.style.display='block';p.textContent=steps[0];timer=setInterval(()=>p.textContent=steps[Math.min(++i,3)],1300);
-  try{const d=await post('/api/scan',{url:$('u').value});clearInterval(timer);p.style.display='none';show(d)}
+async function run(request,phases){
+  $('err').textContent='';$('results').style.display='none';$('go').disabled=$('demo').disabled=true;
+  const p=$('phase');let i=0;p.style.display='block';p.textContent=phases[0];timer=setInterval(()=>p.textContent=phases[Math.min(++i,phases.length-1)],1300);
+  try{const d=await request();clearInterval(timer);p.style.display='none';show(d)}
   catch(x){clearInterval(timer);p.style.display='none';$('err').textContent=x.message}
-  $('go').disabled=false;
-};
+  $('go').disabled=$('demo').disabled=false;
+}
+$('f').onsubmit=e=>{e.preventDefault();run(()=>post('/api/scan',{url:$('u').value}),steps)};
+$('demo').onclick=()=>run(()=>post('/api/example',{}),['Loading']);
 </script>
 </body>
 </html>

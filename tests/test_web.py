@@ -12,7 +12,7 @@ from unittest import mock
 
 from vibe_check import web
 from vibe_check.ai import DESCRIPTIONS, FIX_HINTS, chat, fix_prompt
-from vibe_check.secrets import HIDDEN_LINE, Finding, masked_lines
+from vibe_check.secrets import HIDDEN_LINE, SECRET_RULES, Finding, masked_lines
 
 
 class UrlTests(unittest.TestCase):
@@ -173,7 +173,7 @@ class ChatPromptTests(unittest.TestCase):
         self.assertEqual(set(DESCRIPTIONS), set(FIX_HINTS))
 
 
-class ChatEndpointTests(unittest.TestCase):
+class ServerTestCase(unittest.TestCase):
     def setUp(self):
         self.server = web.ThreadingHTTPServer((web.HOST, 0), web.Handler)
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
@@ -183,14 +183,19 @@ class ChatEndpointTests(unittest.TestCase):
         web.latest_scan.clear()
         web.latest_scan.update({'scan': 'abc', 'findings': [ChatPromptTests.finding]})
 
-    def post(self, body):
-        url = f'http://{web.HOST}:{self.server.server_port}/api/chat'
+    def post_to(self, path, body):
+        url = f'http://{web.HOST}:{self.server.server_port}{path}'
         request = urllib.request.Request(url, json.dumps(body).encode(), {'Content-Type': 'application/json'})
         try:
             with urllib.request.urlopen(request) as response:
                 return response.status, json.load(response)
         except urllib.error.HTTPError as error:
             return error.code, json.load(error)
+
+
+class ChatEndpointTests(ServerTestCase):
+    def post(self, body):
+        return self.post_to('/api/chat', body)
 
     def test_answers_with_key(self):
         with mock.patch.dict(os.environ, {'BHARATCODE_API_KEY': 'k'}), mock.patch.object(web, 'chat', return_value='Because.') as ask:
@@ -222,6 +227,22 @@ class ChatEndpointTests(unittest.TestCase):
             status, body = self.post({'scan': 'abc', 'finding': 0, 'question': 'Why?'})
         self.assertEqual(status, 400)
         self.assertIn('did not answer', body['error'])
+
+
+class ExampleTests(ServerTestCase):
+    def test_example_becomes_the_chat_scan(self):
+        status, body = self.post_to('/api/example', {})
+        self.assertEqual(status, 200)
+        self.assertTrue(body['example'])
+        self.assertEqual(body['repo'], 'OWASP/NodeGoat')
+        self.assertEqual(web.latest_scan['scan'], body['scan'])
+        self.assertNotEqual(web.load_example()['scan'], body['scan'])
+
+    def test_example_keeps_secret_lines_hidden(self):
+        for finding in web.load_example()['findings']:
+            if finding['rule'] in SECRET_RULES:
+                flagged = [row['text'] for row in finding['snippet'] if row['flagged']]
+                self.assertEqual(flagged, [HIDDEN_LINE], finding['path'])
 
 
 class PageTests(unittest.TestCase):
