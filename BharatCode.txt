@@ -1,4 +1,0 @@
-Project: vibe-check
-Built for: BharatCode Build League, Round 1
-Track: Coding & developer tools
-Summary: A CLI that reviews AI-written code before it ships, combining deterministic checks with plain-English explanations from the BharatCode model API.
